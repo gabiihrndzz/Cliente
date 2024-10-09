@@ -13,6 +13,39 @@
         </style>
     </head>
     <body>
-        <script>alerta()</script>
+        <script>/*alerta()*/
+        let correcto;
+        do{
+            correcto = true;
+            let mes = prompt('Introduce un mes en forma numerica','');
+            mes=mes.trim();//para borrar los espacios en blanco
+        switch(mes){
+            case '2':
+                document.write('Tiene 28 o 29 segun si es o no bisiesto');
+                correcto= true;
+                break;
+            case '4':
+            case '6':
+            case '9':
+            case '11':
+                document.write('El mes tiene 30 dias');
+                correcto=true;
+                break;
+            case '1':
+            case '3':
+            case '5':
+            case '7':
+            case '8':
+            case '10':
+            case '12':
+                document.write('El mes tiene 31 dias');
+                correcto=true;
+                break;
+            default:
+                document.write('error en la fecha introducida <br>');
+                correcto=false;
+                break;
+        }}while(!correcto);
+        </script>
     </body>
 </html>

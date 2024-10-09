@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <style>
+            body{
+                background-color: aliceblue;
+                text-align: center;
+                font-size:20px;
+            }
+            script{
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <script>    let dividendo = prompt ('Introduce el dividendo ( debe ser mayor que el divisor');
+            dividendo = parseFloat(dividendo);
+            let divisor = prompt('Introduce el divisor');
+            divisor = parseFloat(divisor);
+            if(dividendo< divisor){
+                alert('El dividendo debe ser superiorr al divisor');
+            }
+            else if (divisor<=0){
+                alert('El divisor debe ser superior a 0');
+            }
+            if(dividendo>=divisor){let x = dividendo;
+            let contador= 0 ; 
+            while(x>=divisor){
+                x-=divisor;
+                contador++;
+            }
+            document.write('La division de ',dividendo, ' entre ', divisor, ' da un resultado de: ', contador, ' de resto: ', x);}
+        </script>
+    </body>
+</html>
