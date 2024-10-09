@@ -1,0 +1,1 @@
+define("@microsoft/azureportal-reactview/Styling",["require","exports","@fluentui/utilities/lib/classNamesFunction"],(function(e,t,s){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.getClassNames=void 0,t.getClassNames=function(e){return(0,s.classNamesFunction)()(e)}}));

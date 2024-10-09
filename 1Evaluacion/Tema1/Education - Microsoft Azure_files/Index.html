@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style elementtiming="35" data-merge-styles="true"></style><style>
+
+    html, body { margin: 0; height: 100%; overflow: hidden; }
+    body { display: flex; flex-direction: column; }
+    #root-container { display: flex; flex-direction: column; flex-grow: 1; overflow: hidden; }
+    #root { position: relative; padding: 10px 20px 20px 20px; overflow: auto; flex-grow: 1; display: flex; }
+    .reactview-fullheight { height: calc(100vh - 10px - 20px); }
+    .reactview-nodefaultpadding { margin: -10px -20px -20px -20px; }
+    .reactview-footer { position: fixed; bottom: 0; left: 0; right: 0; padding: 15px 20px; border-top: 1px solid lightgrey; background: white; }
+    .reactview-nestedresource { display: inline-block; position: relative; border-left: 1px solid #a9a9a9; border-bottom: 1px solid #a9a9a9;
+        top: -13px; left: 3px; height: 22px; min-width: 32px; width: 32px; margin-right: 10px; }
+    .reactview-inlineicon { padding: 0px; display: inline-flex; height: 0px; }
+    .reactview-form-layout-label { width: 250px; }
+    .reactview-form-layout-element { width: 470px; }
+    .reactview-form-layout-width { width: 720px; }
+    .reactview-padding { padding: 20px; }
+    .reactview-printonly { display: none; }
+    .reactview-contentfulpaint { background: pink; }
+    #root.reacttile-clickable { cursor: pointer; padding: 0 15px; 15px; 15px; }
+
+    </style><style media="print">
+
+    body, #root { height: auto; width: auto; overflow: visible; }
+    .reactview-noprint { display: none !important; }
+    .reactview-printonly { display: block; }
+    #__bladeClose { padding: 5.5px 10px; cursor: pointer; transition: background-color .2s ease-out; }
+    #__bladeClose:hover { background-color: #BA141A; }
+    #__bladeClose:hover path { fill: white; }
+    #__bladeIcon:not([src]) { display: none; }
+
+    </style><script>
+        // domains that we allow the react frame to load from
+        window.reactEndpoints = ["https://reactblade.portal.azure.net/","https://reactblade-ms.portal.azure.net/","https://reactblade-rc.portal.azure.net/"];
+        window.reactSameOriginEndpoints = ["https://{subdomain}.reactblade.portal.azure.net","https://{subdomain}.reactblade-ms.portal.azure.net","https://{subdomain}.reactblade-rc.portal.azure.net"];
+        window.reactScripts = ["/Content/Dynamic/UO6ZYTWOVDAL.js","/Content/Dynamic/wvqRmzcFOmrg.js","/Content/Dynamic/zTMoRyn8iM0C.js"];
+        window.clientOptimizations = "true";
+        
+            (function() {
+                function sendMessage(message, isSuccess) {
+                    window.parent.postMessage({
+                        signature: 'ReactFrameRenderer',
+                        message,
+                        isSuccess,
+                        sentTimestamp: Date.now(),
+                    }, '*');
+                }
+                sendMessage('html loaded', true);
+                var initialEndpointIndex = parseInt(window.location.href.match(/reactIndex=(\d+)/)?.[1], 10);
+                if (isNaN(initialEndpointIndex)) {
+                    sendMessage('Initial endpoint index is NaN.', false);
+                }
+                var sessionId = window.location.href.match(/sessionId=(\w+)/)?.[1];
+                var i = 0;
+                var retries = 0;
+                function injectScript(endpointIndex) {
+                    if (!window.reactScripts[i]) {
+                        return;
+                    }
+                    var scriptTag = document.createElement('script');
+                    var domain = (window.reactEndpoints[endpointIndex] || '');
+                    var script = window.reactScripts[i];
+                    if (retries > 0) {
+                        sendMessage(`${script} failed to load. Retrying with domain: ${domain}... (${retries} of 3 retries).`, false);
+                    }
+                    scriptTag.src = domain + script + (retries > 0 ? `?sessionId=${sessionId}&retryCount=${retries}&cacheBust=${Math.random()}` : '');
+                    scriptTag.crossOrigin = 'anonymous';
+                    function retryScriptInjection() {
+                        if (retries < 3 && !!window.reactEndpoints.length) {
+                            retries++;
+                            document.head.removeChild(scriptTag);
+                            var index;
+                            if (retries === 1) {
+                                index = initialEndpointIndex;
+                            } else {
+                                index = (endpointIndex + 1) % window.reactEndpoints.length;
+                            }
+                            injectScript(index);
+                        } else {
+                            window.removeEventListener('online', onlineHandler);
+                        }
+                    }
+                    function onlineHandler() {
+                        sendMessage('Network Online', true);
+                        window.removeEventListener('online', onlineHandler);
+                        retryScriptInjection();
+                    }
+                    scriptTag.addEventListener('load', function() {
+                        sendMessage(script + ' loaded.', true);
+                        i++;
+                        retries = 0;
+                        window.removeEventListener('online', onlineHandler);
+                        injectScript(initialEndpointIndex);
+                    });
+                    scriptTag.addEventListener('error', function(e) {
+                        try {
+                            const error = JSON.stringify(e, Object.getOwnPropertyNames(e));
+                            sendMessage(script + ' error while loading: ' + error, false);
+                        } catch (e) {
+                            sendMessage(script + ' error while loading: (non-serializable)', false);
+                        }
+                        if (!window.navigator.onLine) {
+                            sendMessage('Network Offline', false);
+                            window.addEventListener('online', onlineHandler);
+                        } else {
+                            retryScriptInjection(scriptTag, endpointIndex);
+                        }
+                    });
+                    document.head.appendChild(scriptTag);
+                }
+                window.reactScripts.forEach(function(scriptUri) {
+                    var linkTag = document.createElement('link');
+                    linkTag.rel = 'preload';
+                    linkTag.href = (window.reactEndpoints[initialEndpointIndex] || '') + scriptUri;
+                    linkTag.as = 'script';
+                    linkTag.crossOrigin = 'anonymous';
+                    document.head.appendChild(linkTag);
+                });
+                injectScript(initialEndpointIndex);
+            })();
+        
+    </script><link rel="preload" href="./UO6ZYTWOVDAL.js.descarga" as="script" crossorigin="anonymous"><link rel="preload" href="./wvqRmzcFOmrg.js.descarga" as="script" crossorigin="anonymous"><link rel="preload" href="./zTMoRyn8iM0C.js.descarga" as="script" crossorigin="anonymous"><script src="./UO6ZYTWOVDAL.js.descarga" crossorigin="anonymous"></script><script src="./wvqRmzcFOmrg.js.descarga" crossorigin="anonymous"></script><script src="./zTMoRyn8iM0C.js.descarga" crossorigin="anonymous"></script><script data-requiremodule="FxInternal/Resources/ReactComponents" async="" src="./l1AcZxRoZo66.js.descarga" crossorigin="anonymous"></script><script data-requiremodule="@microsoft/azureportal-reactview/Az" async="" src="./UfbgXxlzU5QA.js.descarga" crossorigin="anonymous"></script><div elementtiming="0" id="injectedCss"><style elementtiming="1" class="MsPortalImpl/Themes/Theme2.Colors.Blue.css"></style><style elementtiming="2" class="MsPortalImpl/Themes/Theme2.Colors.Azure.css">.fxs-mode-light{--todoBackgroundSecondary:#e1dfdd;--TileOverlay:rgba(255,255,255,.4);--pillFocusBackground:#b3d7f2}.fxs-mode-light{--todoGraphNodeFill:#bbe1ff;--todoGraphNodeFillHover:#6ec0ff;--todoGraphNodeBackground:#bbe1ff;--todoGraphNodeBackgroundHover:#6ec0ff;--todoChartLine:#ccc;--todoChartTextFill:#5b5a59;--todoFocusRowHover:#e6f2fb;--todoBackgroundLight:#e6e6e6;--todoBackgroundMuted:#b3b3b3;--todoBackgroundMuted-80-10:#333;--todoBackgroundMuted-82-10:#2d2d2d;--todoBackgroundMutedHover:#808080;--todoBackgroundInverted:#4d4d4d;--todoBorderMuted:#ccc;--todoBorderMuted-80-20:#333;--todoBorderInverted:#4d4d4d;--todoIconMuted:#808080;--todoIconHeavy:#666;--todoScrollbarThumb:#b3b3b3;--todoExternalBorder:#d6d6d6;--todoExternalBodrerHover:#00bcf2;--todoExternalBorderSelected:#00bcf2;--todoExternalTextMuted:#444}.fxs-mode-dark{--todoGraphNodeFill:#605e5c;--todoGraphNodeFillHover:#7b7978;--todoGraphNodeBackground:#605e5c;--todoGraphNodeBackgroundHover:#7b7978;--todoChartLine:#414141;--todoChartTextFill:#ccc;--todoFocusRowHover:#414141;--todoBackgroundLight:#292929;--todoBackgroundMuted:#585858;--todoBackgroundMuted-80-10:#292929;--todoBackgroundMuted-82-10:#292929;--todoBackgroundMutedHover:#888;--todoBackgroundInverted:#b8b8b8;--todoBorderMuted:#414141;--todoBorderMuted-80-20:#292929;--todoBorderInverted:#b8b8b8;--todoIconMuted:#888;--todoIconHeavy:#a0a0a0;--todoScrollbarThumb:#585858;--todoExternalBorder:#605e5c;--todoExternalBodrerHover:#00bcf2;--todoExternalBorderSelected:#00bcf2;--todoExternalTextMuted:#bbb}.fxs-mode-light{--shadowLevel1:0 1.6px 3.6px 0 rgba(0,0,0,.132),0 .3px .9px 0 rgba(0,0,0,.108);--shadowLevel2:0 3.2px 7.2px 0 rgba(0,0,0,.132),0 .6px 1.8px 0 rgba(0,0,0,.108);--shadowLevel3:0 6.4px 14.4px 0 rgba(0,0,0,.132),0 1.2px 3.6px 0 rgba(0,0,0,.108);--shadowLevel4:0 25.6px 57.6px 0 rgba(0,0,0,.22),0 4.8px 14.4px 0 rgba(0,0,0,.18);--shadowFocusBorder:inset 0 0 0 1px #0078d4!important;--colorTextPrimary:#292827;--colorTextPrimaryHover:#201f1e;--colorTextSecondary:#646464;--colorTextInverted:#fff;--colorTextBrand:#0078d4;--colorTextError:#a4262c;--colorTextDisabled:#a19f9d;--colorTextSuccess:#428000;--colorLink:#0078d4;--colorLinkHover:#004578;--colorLinkDisabled:#a19f9d;--colorLinkContrast:#005a9e;--colorLinkContrastHover:#004578;--colorLinkContrastDisabled:#a19f9d;--colorButtonBackgroundPrimary:#0078d4;--colorButtonBackgroundPrimaryHover:#106ebe;--colorButtonBackgroundPrimaryPressed:#005a9e;--colorButtonForegroundPrimary:#fff;--colorButtonBackgroundSecondary:#fff;--colorButtonBackgroundSecondaryHover:#f3f2f1;--colorButtonBackgroundSecondaryPressed:#edebe9;--colorButtonBackgroundSecondarySelectHover:#e1dfdd;--colorButtonForegroundSecondary:#323130;--colorButtonForegroundSecondaryHover:#201f1e;--colorButtonForegroundSecondaryPressed:#201f1e;--colorButtonBackgroundDanger:#c32727;--colorButtonBackgroundTertiary:#e6f2fb;--colorButtonBackgroundDangerHover:#a52121;--colorButtonBackgroundDangerPressed:#791818;--colorButtonForegroundDanger:#fff;--colorButtonBackgroundDisabled:#f3f2f1;--colorButtonForegroundDisabled:#a19f9d;--colorButtonToolbardForeground:#323130;--colorButtonToolbardForegroundHover:#201f1e;--colorControlBackground:#fff;--colorControlBackgroundHover:#f3f2f1;--colorControlBackgroundSelected:#edebe9;--colorControlBackgroundSelectedHover:#e1dfdd;--colorControlBackgroundSecondary:#8a8886;--colorControlBackgroundSecondarySelected:#605e5c;--colorControlBackgroundSecondaryHover:#c7e0f4;--colorControlBackgroundSecondarySelectedHover:#0078d4;--colorControlBorder:#8a8886;--colorControlBorderSecondary:#d6d6d6;--colorControlBorderHover:#323130;--colorControlBorderFocus:#0078d4;--colorControlBorderFocusSecondary:#605e5c;--colorControlBorderInfo:#015cda;--colorControlBorderSuccess:#57a300;--colorControlBorderWarning:#db7500;--colorControlBorderError:#a4262c;--colorControlBorderDirty:#8a2da5;--colorControlBorderDisabled:#a19f9d;--colorControlBackgroundDisabled:#f3f2f1;--colorControlBackgroundDisabledSelected:#c8c6c4;--colorControlBackgroundSecondaryDisabled:#edebe9;--colorControlBackgroundSecondaryDisabledSelected:#a19f9d;--colorControlBackgroundBrand:#0078d4;--colorIconPrimary:#323130;--colorIconSecondary:#605e5c;--colorIconBrand:#0078d4;--colorIconBrandHover:#106ebe;--colorIconBrandPressed:#005a93;--colorIconInverted:#fff;--colorIconDisabled:#a19f9d;--colorIconInfo:#015cda;--colorIconSuccess:#57a300;--colorIconWarning:#db7500;--colorIconError:#a4262c;--colorIconUpsell:#8a2da5;--colorContainerBackgroundPrimary:#fff;--colorContainerBackgroundSecondary:#f3f2f1;--colorContainerBackgroundInverted:#000;--colorContainerBackgroudFloating:#fff;--colorContainerBackgroundInfo:#dae4ff;--colorContainerBackgroundSuccess:#e6ffcc;--colorContainerBackgroundWarning:#ffdfb8;--colorContainerBackgroundError:#fdd8db;--colorContainerBackgroundUpsell:#efdbf5;--colorContainerBorderPrimary:#e1dfdd;--colorContainerBorderSecondary:#f3f2f1;--colorDividerPrimary:#f3f2f1;--colorSideNavDocked:#f3f2f1;--colorStatusHighlightInfo:#0058ad;--colorStatusHighlightSuccess:#7fba00;--colorStatusHighlightWarning:#ffba01;--colorStatusHighlightChange:#8a2da5;--colorSearchHighlightText:#000;--colorSearchHighlightBackground:#ff0;--copilotIconBackground:#fff;--copilotIconTextColor:#2a446f;--copilotIconHoverBackground:#e6f4fe;--copilotIconHoverTextColor:#263f69;--copilotIconActiveBackground:#cae6fc;--copilotIconActiveTextColor:#243b60;--copilotIconFocusBackground:#fff;--copilotIconFocusTextColor:#2a446f}.fxs-mode-light.fxs-theme-azure{--topbarBackground:#0078d4;--topbarActionHoverBgColor:#106ebe;--topbarActionPressedBgColor:#1664a7;--topbarButtonActiveBackground:#fff;--topbarText:#fff;--topbarHamburger:#fff;--topbarAlternateTextFill:#135995;--topbarOutlineColor:#fff;--topbarActiveOutlineColor:#605e5c;--searchBackground:#b3d6f2;--searchBackgroundFocus:#fff;--notificationUnreadBackground:#fff;--notificationUnreadText:#0078d4;--topbarBG:#0078d4;--sidebarBackground:#fff;--sidebarText:#000;--sidebarActiveBackground:rgba(85,179,255,.2);--sidebarHoverBackground:#55b3ff1a;--sidebarItemDivider:#edebe9;--sidebarCollapseButton:#333;--sidebarShadowWidth:8px;--sidebarShadow:linear-gradient(270deg,rgba(0,0,0,.06) 0,rgba(0,0,0,0) 100%);--sidebarLink:#0078d4}</style><style elementtiming="3" class="MsPortalImpl/Themes/Theme2.Colors.Light.css"></style><style elementtiming="4" class="MsPortalImpl/Themes/Theme2.Colors.Dark.css"></style><style elementtiming="5" class="MsPortalImpl/Themes/Theme2.Colors.HighContrastMode.LightMode.css"></style><style elementtiming="6" class="MsPortalImpl/Themes/Theme2.Colors.HighContrastMode.DarkMode.css"></style></div><style elementtiming="7">.msportalfx-svg-c01{fill:#fff}.msportalfx-svg-c02{fill:#e5e5e5}.msportalfx-svg-c03{fill:#a0a1a2}.msportalfx-svg-c04{fill:#7a7a7a}.msportalfx-svg-c05{fill:#3e3e3e}.msportalfx-svg-c06{fill:#1e1e1e}.msportalfx-svg-c07{fill:#0f0f0f}.msportalfx-svg-c08{fill:#ba141a}.msportalfx-svg-c09{fill:#dd5900}.msportalfx-svg-c10{fill:#ff8c00}.msportalfx-svg-c11{fill:#fcd116}.msportalfx-svg-c12{fill:#fee087}.msportalfx-svg-c13{fill:#b8d432}.msportalfx-svg-c14,.msportalfx-svg-c32{fill:#57a300}.msportalfx-svg-c15{fill:#59b4d9}.msportalfx-svg-c16{fill:#3999c6}.msportalfx-svg-c17{fill:#804998}.msportalfx-svg-c18{fill:#ec008c}.msportalfx-svg-c19{fill:#0072c6}.msportalfx-svg-c20{fill:#68217a}.msportalfx-svg-c21{fill:#00188f}.msportalfx-svg-c22{fill:#e81123}.fxs-mode-light .msportalfx-svg-c22{fill:#a4262c}.msportalfx-svg-c23{fill:#cae3f3}.msportalfx-svg-c24{fill:#59aed3}.msportalfx-svg-c25{fill:#4c3b12}.msportalfx-svg-c26{fill:#be9555}.msportalfx-svg-c27{fill:#4f4d52}.msportalfx-svg-c28{fill:#ef6f59}.msportalfx-svg-c29{fill:#f7cb64}.msportalfx-svg-c30{fill:#fdd8db}.msportalfx-svg-c31{fill:#f6ffec}.msportalfx-svg-c33{fill:#8a2da5}.msportalfx-svg-c34{fill:#e00b1c}.msportalfx-svg-c35{fill:#015cda}.msportalfx-svg-c36{fill:#5db300}.msportalfx-svg-c97{fill:#ffb900}.msportalfx-svg-c98{fill:#00a4ef}.msportalfx-svg-c99{fill:#f25022}.msportalfx-inverted-theme .msportalfx-svg-c05,.fxs-theme-dark .msportalfx-svg-c05{fill:#777}.msportalfx-inverted-theme .msportalfx-svg-c07,.fxs-theme-dark .msportalfx-svg-c07{fill:#f2f2f2}.msportalfx-svg-palette-white{fill:#fff}.msportalfx-svg-palette-blue{fill:#015cda}.msportalfx-svg-palette-black{fill:#1e1e1e}.msportalfx-svg-palette-green{fill:#57a300}.msportalfx-svg-palette-gray{fill:#a0a1a2}.msportalfx-svg-palette-inherit{fill:inherit}.msportalfx-svg-badge{position:absolute;left:0;bottom:0;min-height:10px;min-width:10px}.fxc-menu-icon>.msportalfx-svg-badge{left:-2px;bottom:-2px;min-height:8px;min-width:8px}.msportalfx-svg-disabled{filter:grayscale(100%)}.msportalfx-svg-loading-square{animation:ProgressFlagAnimation 1.45s infinite ease-in-out;transform-origin:50%}.msportalfx-svg-loading-square:nth-child(1){animation-delay:0s}.msportalfx-svg-loading-square:nth-child(2){animation-delay:.2s}.msportalfx-svg-loading-square:nth-child(3){animation-delay:.4s}@keyframes ProgressFlagAnimation{0%{transform:scale(1);opacity:.3}36.1%{transform:scale(1.06);opacity:1}50%{transform:scale(1.06);opacity:1}86.1%{transform:scale(1);opacity:.3}}.msportalfx-svg-flip-horizontal>svg,svg.msportalfx-svg-flip-horizontal{transform:scaleX(-1)}.msportalfx-svg-fabric-rotate360{animation:ImageRotation 1.3s cubic-bezier(.53,.21,.29,.67) infinite}@keyframes ImageRotation{0%{transform:rotate(-45deg)}100%{transform:rotate(315deg)}}.fxs-svg-number .msportalfx-font-bold{font-size:10px;fill:#0065ad}.fxs-svg-number .fxs-svg-circle{stroke-width:0%;fill:#0078d4}.fxs-svg-number .fxs-svg-text{fill:#fff;font-size:10px}.fxs-svg-number.msportalfx-svg-disabled{filter:grayscale(0%)}.fxs-svg-number.msportalfx-svg-disabled .fxs-svg-circle{fill:#fff;stroke-width:1px;stroke:#949494}.fxs-svg-number.msportalfx-svg-disabled .fxs-svg-text{fill:#949494}.fxs-theme-dark .fxs-svg-number .fxs-svg-text{fill:#0f0f0f}.fxs-theme-dark .fxs-svg-number .fxs-svg-circle{stroke-width:0%;fill:#0078d4}.fxs-theme-dark .fxs-svg-number.msportalfx-svg-disabled .fxs-svg-circle{fill:#0f0f0f;stroke-width:1px;stroke:#949494}.fxs-theme-dark .fxs-svg-number.msportalfx-svg-disabled .fxs-svg-text{fill:#949494}
+.fxs-portal{position:fixed;left:0;right:0;top:0;bottom:0;overflow:hidden;z-index:0;display:flex;flex-direction:column;font-size:13px;line-height:normal}.fxs-portal-main{display:flex;flex-flow:row nowrap;align-items:stretch;position:relative;flex:1 1 auto;min-height:0;height:100%}.fxs-portal-region{display:flex;overflow:hidden;min-height:0;height:100%;min-width:0;width:100%}.fxs-portal-main-region{display:flex;flex-direction:column;width:100%;height:100%;min-height:0;min-width:0;position:relative}.fxs-portal-content{flex:1 1 auto;position:relative;overflow:hidden;z-index:1}.fxs-portal-controlloadfailed>svg{vertical-align:bottom;height:18px}.fxs-portal-tip-content{max-width:400px}.fxs-portal-tip.azc-balloon .azc-balloon-content{padding:0}.fxs-portal-shield{position:fixed;width:100%;height:100%;background-color:rgba(0,0,0,.7);z-index:9;display:table}.fxs-portal-shield-middle{display:table-cell;vertical-align:middle}.fxs-portal-shield-icon{position:absolute;height:40px;width:40px;top:-20px;display:flex;justify-content:center;align-items:center}.fxs-portal-shield-icon>svg{width:20px;height:20px}.fxs-portal-shield-icon-warning{background-color:#ffdfb8}.fxs-portal-shield-icon-error{background-color:#fdd8db}.fxs-portal-shield-modaldialog{width:430px;max-width:100vw;margin:auto;padding:20px;position:relative}.fxs-panorama{position:relative}.fxs-panorama .fxs-startboard-target,.fxs-panorama .fxs-home-target,.fxs-panorama .fxs-journey-target,.fxs-panorama .fxs-sidebar-flyout{display:none;position:absolute;top:0;left:0;height:100%;width:100%;z-index:0}.fxs-panorama .fxs-settings-flyout{position:absolute;top:0;left:0;height:100%;width:100%;z-index:202}.fxs-panorama>div[data-popup="true"].azc-control{z-index:150}.fxs-home-target{overflow-y:auto}.fxs-show-startboard .fxs-startboard-target,.fxs-panorama .fxs-journey-target{display:flex}.fxs-journey-target{pointer-events:none}.fxs-show-journey .fxs-journey-target,.fxs-journey-target .fxs-part-frame{pointer-events:all}.fxs-show-home .fxs-home-target,.fxs-show-allservices .fxs-sidebar-flyout,.fxs-show-settings .fxs-settings-flyout{display:block}.fxs-input{padding:0;margin:0;box-sizing:border-box;border-width:1px;border-style:solid;outline:0;height:24px;text-indent:10px}.fxs-button.fxt-button:focus,.azc-button.fxt-button:focus{outline:0}.fxt-button{min-width:80px;border-radius:2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.fxs-button{position:relative;box-sizing:border-box;height:24px;font-size:13px;line-height:20px;font-weight:600;cursor:pointer;border-width:1px;border-style:solid;padding:0 20px;margin:0}.fxs-button.fxs-button-disabled{cursor:default}.fxs-inner-solid-border{position:relative}.fxs-inner-solid-border:focus::after{content:"";position:absolute;top:1px;left:1px;right:1px;bottom:1px;display:block;border-width:1px;border-style:solid;pointer-events:none}.fxs-inner-solid-border:focus::after.fxs-button-default{border-color:#605e5c}.fxs-ellipsis{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fxs-full-height{height:100%}.fxs-full-width{width:100%}@keyframes fxs-progress-animatedEllipses{0%{transform:scale(1);opacity:.3}36.1%{transform:scale(1.06);opacity:1}50%{transform:scale(1.06);opacity:1}86.1%{transform:scale(1);opacity:.3}}@keyframes fxs-progress-animatedEllipsesShadow{0%{transform:scale(1);opacity:0}36.1%{transform:scale(1.06);opacity:.4}50%{transform:scale(1.06);opacity:.4}86.1%{transform:scale(1);opacity:0}}fxs-progress,.fxs-progress{position:absolute;width:100%;height:100%;top:0;z-index:194}.fxs-progress-nozindex{z-index:initial}.fxs-progress-dots{position:absolute;top:calc(50% - 10px/2);width:100%;line-height:0;justify-content:center;display:grid}.fxs-progress-dots-dot,.fxs-progress-dots-dot-shadow{height:10px;width:10px;margin:0 5px;border-radius:5px;grid-row-start:1}.fxs-progress-dots-dot:nth-child(1),.fxs-progress-dots-dot-shadow:nth-child(1),.fxs-progress-dots-dot:nth-child(4),.fxs-progress-dots-dot-shadow:nth-child(4){grid-column-start:1;animation-delay:0s}.fxs-progress-dots-dot:nth-child(2),.fxs-progress-dots-dot-shadow:nth-child(2),.fxs-progress-dots-dot:nth-child(5),.fxs-progress-dots-dot-shadow:nth-child(5){grid-column-start:2;animation-delay:.125s}.fxs-progress-dots-dot:nth-child(3),.fxs-progress-dots-dot-shadow:nth-child(3),.fxs-progress-dots-dot:nth-child(6),.fxs-progress-dots-dot-shadow:nth-child(6){grid-column-start:3;animation-delay:.25s}.fxs-progress-dots-dot{animation:fxs-progress-animatedEllipses 1.8s infinite;background-color:#3471ff;opacity:.3}.fxs-progress-dots-dot-shadow{animation:fxs-progress-animatedEllipsesShadow 1.8s infinite;background-color:transparent;opacity:0;box-shadow:0 3px 3px 0 #0078d4}.fxs-progress-small .fxs-progress-dots,.fxs-bladecontent-unlocked .fxs-tile .fxs-progress-dots,.fxs-startboard-layout .fxs-tile .fxs-progress-dots{top:calc(50% - 6px/2)}.fxs-progress-small .fxs-progress-dots-dot,.fxs-bladecontent-unlocked .fxs-tile .fxs-progress-dots-dot,.fxs-startboard-layout .fxs-tile .fxs-progress-dots-dot,.fxs-progress-small .fxs-progress-dots-dot-shadow,.fxs-bladecontent-unlocked .fxs-tile .fxs-progress-dots-dot-shadow,.fxs-startboard-layout .fxs-tile .fxs-progress-dots-dot-shadow{height:6px;width:6px;margin:0 3px;border-radius:3px}.fxs-progress-small .fxs-progress-dots-dot-shadow,.fxs-bladecontent-unlocked .fxs-tile .fxs-progress-dots-dot-shadow,.fxs-startboard-layout .fxs-tile .fxs-progress-dots-dot-shadow{box-shadow:0 2px 2px 0 #0078d4}.azc-fabric .azc-formControl{border-radius:2px!important}.azc-fabric .azc-textBox-wrapper .azc-input,.azc-fabric .azc-password-wrapper .azc-input,.azc-fabric .azc-numericTextBox-wrapper .azc-input{border-radius:2px}</style><script elementtiming="8" data-requiremodule="@microsoft/azureportal-reactview/ReactView" async="" src="./oYA3KeNTOx0h.js.descarga" crossorigin="anonymous"></script><script elementtiming="9" data-requiremodule="@fluentui/react/lib/Shimmer" async="" src="./2xK498c05gVZ.js.descarga" crossorigin="anonymous"></script><script elementtiming="10" data-requiremodule="@microsoft/azureportal-reactview/internal/PrewarmFluentUI8-Common" async="" src="./P48s60SCHjkA.js.descarga" crossorigin="anonymous"></script><script elementtiming="11" data-requiremodule="@microsoft/azureportal-reactview/internal/PrewarmFluentUI8-Extended" async="" src="./qNZ1aABRS8yO.js.descarga" crossorigin="anonymous"></script><script elementtiming="12" data-requiremodule="@microsoft/azureportal-reactview/FormBuilder" async="" src="./yN1poZ0M4RYa.js.descarga" crossorigin="anonymous"></script><script elementtiming="13" data-requiremodule="@microsoft/azureportal-reactview/BladeLink" async="" src="./Zzi2Vuc1dPp2.js.descarga" crossorigin="anonymous"></script><script elementtiming="14" data-requiremodule="@microsoft/azureportal-reactview/Navigation" async="" src="./sZUU-JAF-qqc.js.descarga" crossorigin="anonymous"></script><script elementtiming="15" data-requiremodule="@microsoft/azureportal-reactview/ControlPlaneValidators" async="" src="./exu8u56MUi5_.js.descarga" crossorigin="anonymous"></script><script elementtiming="16" data-requiremodule="@microsoft/azureportal-reactview/FormLabel" async="" src="./2XcBTECY8i08.js.descarga" crossorigin="anonymous"></script><script elementtiming="17" data-requiremodule="@microsoft/azureportal-reactview/Css" async="" src="./_zF4-rV4z2Ve.js.descarga" crossorigin="anonymous"></script><script elementtiming="18" data-requiremodule="@microsoft/azureportal-reactview/internal/ContextUtilities" async="" src="./IQD8jMaBLgCZ.js.descarga" crossorigin="anonymous"></script><script elementtiming="19" data-requiremodule="_oss/@hookstate/core" async="" src="./xqX21tiU9T5X.js.descarga" crossorigin="anonymous"></script><script elementtiming="20" data-requiremodule="lodash" async="" src="./uT57JtbWkABK.js.descarga" crossorigin="anonymous"></script><script elementtiming="21" data-requiremodule="@microsoft/azureportal-reactview/internal/SharedFormContext" async="" src="./lu1plsALnTkT.js.descarga" crossorigin="anonymous"></script><script elementtiming="22" data-requiremodule="@microsoft/azureportal-reactview/FrameworkIcon" async="" src="./qm4RC8Pb0Pa9.js.descarga" crossorigin="anonymous"></script><script elementtiming="23" data-requiremodule="FxInternal/Resources/ControlPlaneValidatorsResources" async="" src="./RA9CRrEhpeOx.js.descarga" crossorigin="anonymous"></script><script elementtiming="24" data-requiremodule="@microsoft/azureportal-reactview/Styling" async="" src="./UzX9xPiRwYvR.js.descarga" crossorigin="anonymous"></script><script elementtiming="25" data-requiremodule="@microsoft/azureportal-reactview/DataManagement" async="" src="./iYSQJM98LnFx.js.descarga" crossorigin="anonymous"></script><script elementtiming="26" data-requiremodule="@microsoft/azureportal-reactview/FilterableDropdown" async="" src="./03B__Nw0ZifU.js.descarga" crossorigin="anonymous"></script><script elementtiming="27" data-requiremodule="@microsoft/azureportal-reactview/internal/AsyncHooks" async="" src="./t18nSucLX_rk.js.descarga" crossorigin="anonymous"></script><script elementtiming="28" data-requiremodule="@microsoft/azureportal-reactview/internal/ResourceManagement" async="" src="./oa2IIuwfbngB.js.descarga" crossorigin="anonymous"></script><script elementtiming="29" data-requiremodule="@fluentui/react/lib/Separator" async="" src="./ZgjNx2lHpxff.js.descarga" crossorigin="anonymous"></script><script elementtiming="30" data-requiremodule="@microsoft/azureportal-reactview/StatusBar" async="" src="./Yx_QQ5xbndXG.js.descarga" crossorigin="anonymous"></script><script elementtiming="31" data-requiremodule="@fluentui/react/lib/MessageBar" async="" src="./8HaPWKW0TIrp.js.descarga" crossorigin="anonymous"></script><script elementtiming="32" data-requiremodule="@microsoft/azureportal-reactview/Subscriptions" async="" src="./WSlpAil1L5ox.js.descarga" crossorigin="anonymous"></script><script elementtiming="33" data-requiremodule="FxInternal/Resources/FormBuilderResources" async="" src="./9p1mOpTS40rJ.js.descarga" crossorigin="anonymous"></script><script elementtiming="34" data-requiremodule="@microsoft/azureportal-reactview/internal/PrewarmRoot" async="" src="./3sFvEPD1ueUU.js.descarga" crossorigin="anonymous"></script></head><body>
+        <div id="__frameTitle" style="height: 64px;" class="reactview-printonly">
+            <div style="display: flex; height: 100%; box-sizing: border-box; padding: 8px 20px;">
+                <span style="display: flex; align-items: center;">
+                    <img id="__bladeIcon" aria-hidden="true" style="height: 28px; width: 28px; margin-right: 10px;">
+                </span>
+                <span style="flex-grow: 1; font-family: Segoe UI;">
+                    <div style="display: flex;">
+                        <h2 id="__bladeTitle" style="margin:0; font-size: 24px; line-height: 28px; height: 32px; flex-grow: 1;">
+                            <span id="__bladeTitleMain" style="font-weight: 600;"></span>
+                            <span id="__bladeTitleExtras" style="font-weight: 400;"></span>
+                        </h2>
+                    </div>
+                    <div id="__bladeSubtitle" style="font-size: 12px; line-height: 14px; height: 16px; color: #646464;"></div>
+                </span>
+            </div>
+        </div>
+        <div id="__bladeShield" style="visibility: hidden">
+            <div style="position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 1000; background-color: inherit;">
+                <div class="fxs-progress-dots">
+                    <div class="fxs-progress-dots-dot"></div>
+                    <div class="fxs-progress-dots-dot"></div>
+                    <div class="fxs-progress-dots-dot"></div>
+                    <div class="fxs-progress-dots-dot-shadow"></div>
+                    <div class="fxs-progress-dots-dot-shadow"></div>
+                    <div class="fxs-progress-dots-dot-shadow"></div>
+                </div>
+            </div>
+        </div>
+        <div id="root-container"></div>
+        <div id="react-perftools" style="display: none; height: 415px;"></div>
+    </body></html>

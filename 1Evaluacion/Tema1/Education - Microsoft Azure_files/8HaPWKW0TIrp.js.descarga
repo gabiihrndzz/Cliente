@@ -1,0 +1,1 @@
+define("@fluentui/react/lib/MessageBar",["require","exports","tslib","@fluentui/react/lib/components/MessageBar/index"],(function(e,t,r,i){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),r.__exportStar(i,t)}));

@@ -1,0 +1,1 @@
+define("MsPortalImpl/Resources/SessionHandlerResources",{TimeoutDialog:{acceptButton:"No cerrar sesión",cancelButton:"Cerrar sesión ahora",description:"Se cerrará la sesión en menos de un minuto debido a la inactividad, ¿quiere mantener la sesión iniciada?",title:"Cerrando sesión"}});

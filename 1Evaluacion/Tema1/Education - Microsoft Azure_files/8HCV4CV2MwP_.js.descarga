@@ -1,0 +1,1 @@
+define("SharedUtilities/ClipboardUtils",["require","exports"],(function(i,r){"use strict";Object.defineProperty(r,"__esModule",{value:!0}),r.writeToClipboard=r.readFromClipBoard=void 0,r.readFromClipBoard=async function(){const i=window.navigator.clipboard;return await i.readText()},r.writeToClipboard=async function(i){const r=window.navigator.clipboard;await r.writeText(i)}}));
