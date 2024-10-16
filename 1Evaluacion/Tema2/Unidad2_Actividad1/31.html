@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <script src="28.js"></script>
+        <style>
+            body {
+                background-color: aliceblue;
+                text-align: center;
+                font-size: 20px;
+            }
+            script {
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+        /* Calcular el volumen y el área de una esfera utilizando las fórmulas:
+            V = 4π r^3/3....
+            V = 4π r2..... 
+        */            
+        let radio=prompt('Introduzca el radio:');
+            radio=parseFloat(radio);
+            
+            volumen= 4*3.14*(radio*radio*radio)/3;
+            document.write("El Volumen es: "+volumen+" cm<br>   ");
+            
+            area= 4*3.14*(radio*radio);
+            document.write("El area es: "+area+" cm");
+        </script>
+    </body>
+</html>

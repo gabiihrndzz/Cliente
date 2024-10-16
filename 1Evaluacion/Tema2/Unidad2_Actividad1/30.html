@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <script src="28.js"></script>
+        <style>
+            body {
+                background-color: aliceblue;
+                text-align: center;
+                font-size: 20px;
+            }
+            script {
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+        /* Realiza un programa para que dos personas puedan jugar al Master Mind.
+        Primeramente, el ordenador pedirá una combinación secreta que consistirá en 4 números y que
+        tecleará una de las personas. Después, la otra persona deberá adivinar dicha combinación secreta
+        para lo que dispondrá como máximo de 8 intentos. Cada intento consistirá en escribir 4 números,
+        tras lo cual el ordenador escribirá el número de muertos y de heridos.
+        
+        1. Un número está muerto si coincide en valor y en posición con la combinación secreta.
+        
+        2. Un número está herido si coincide en valor, pero no en posición con la combinación secreta.
+        
+        Por ejemplo: si la combinación secreta es (5 3 1 2), en el intento (5 1 4 4) hay 1 muerto (el 5) y un
+        herido (el 1). Según esta definición en el intento (5 1 1 2) habría 3 muertos (el 5, el segundo 1 y el 2)
+        y 1 herido (el primer 1).
+        
+        El programa terminará por una de las dos siguientes situaciones: a) el jugador ha acertado la
+        combinación escrita por el otro o b) se ha llegado a 8 intentos sin acertarla. */            
+        
+            let combinacionSecreta = prompt('Introduzca una combinación secreta de 4 números:').split('');
+            let intentos = 0;
+            let maxIntentos = 8;
+            
+            while (intentos < maxIntentos) {
+                let intento = prompt(`Intento ${intentos + 1}: Introduzca 4 números:`).split('');
+                let muertos = 0;
+                let heridos = 0;
+                
+                // Contar muertos
+                for (let i = 0; i < 4; i++) {
+                    if (intento[i] === combinacionSecreta[i]) {
+                        muertos++;
+                    }
+                }
+                
+                // Contar heridos
+                for (let i = 0; i < 4; i++) {
+                    if (intento[i] !== combinacionSecreta[i] && combinacionSecreta.includes(intento[i])) {
+                        heridos++;
+                    }
+                }
+                
+                alert(`Muertos: ${muertos}, Heridos: ${heridos}`);
+                
+                if (muertos === 4) {
+                    alert("¡Has acertado la combinación!");
+                    break;
+                }
+                
+                intentos++;
+            }
+            
+            if (intentos === maxIntentos) {
+                alert("Has agotado tus intentos. ¡Mejor suerte la próxima vez!");
+            }
+        </script>
+    </body>
+</html>
