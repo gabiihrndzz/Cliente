@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <style>
+            body {
+                background-color: aliceblue;
+                text-align: center;
+                font-size: 20px;
+            }
+            script {
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+            .styled {
+            font-size: 40px; /* Fuente muy grande */
+            color: red; /* Color rojo */
+            font-weight: bold; /* Negrita */
+            text-decoration: line-through; /* Tachado */
+        }
+        .italic {
+            font-style: italic; /* Cursiva */
+        }
+        </style>
+    </head>
+    <body>
+    <script>
+        /* Realiza un ejercicio trabajando con el objeto String, que muestre por pantalla la longitud de una
+cadena dada por el usuario, además de mostrar esa cadena en cursiva, negrita, tachada, en fuente
+muy grande y en color rojo..*/ 
+        let cadena= prompt('Introduzca una cadena de letras');
+        let letras=0;
+        for (let i = 0 ; i <= cadena.length;i++){
+            i=i++;
+            letras=i;
+        }
+        document.write('Total de letras: ',  letras, '<br>');
+
+        document.write('<span class="styled italic">' + cadena + '</span>');
+
+    </script>
+        <!--cursiva, negrita, tachada, en fuente muy grande y en color rojo.-->
+</body>
+</html>

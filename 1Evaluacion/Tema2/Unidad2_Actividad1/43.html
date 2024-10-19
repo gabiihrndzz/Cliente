@@ -15,13 +15,18 @@
         <script>
          /* Hacer un programa que visualice los 10 primeros múltiplos de un número que introducimos por
             teclado. A continuación, nos visualice la suma de todos ellos. Utilizando la sentencia for.   */   
-            let num1= prompt('Introdzca un numero para visualizar los 10 primeros multiplos y luego hacer la suma')
+            let num1= prompt('Introduzca un numero para visualizar los 10 primeros multiplos y luego hacer la suma')
+            let suma=0;
             num1 = parseInt(num1);
+            document.write('Los multiplos de', num1 ,': ');
             for (let i = num1 ; i <= num1*10;i++){
                 if(i%num1==0){
-                document.write(i,' es multiplo de ', num1, '<br>');
+                document.write(i, ', ');
+                suma=suma+i;
             }
         }
+        document.write('La suma da: ', suma, '<br>');
+        
         </script>
     </body>
 </html>
