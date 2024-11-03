@@ -72,3 +72,169 @@ function comparerCadenaLongitud (f1,f2) {
             
 
         }
+
+
+        function factorial (n){
+            //Devuelve n!
+            
+        }
+
+
+    function testUnidad3(){
+        let miObjeto= new Object();
+        miObjeto.name= "Gabriel";
+        miObjeto.disparos=4;
+        document.write('<br>', miObjeto['name']);
+            miObjeto.disparar =function() {
+                this.disparos --;
+                alert(this.name +" ha disparado. Le quedan "+ this.disparos + ' disparos');
+            }
+
+            miObjeto.disparar();
+    }
+
+    function persona(){
+    let Persona = function (nombre,edad){
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+    let persona2 = new Persona ('Diego', '40');
+    document.write(persona2.nombre+ " de "+persona2.edad + " años");
+}
+
+
+function json(){
+    let miobjeto = {
+        name : "Invasor del espacio #1",
+        color : "Azul",
+        x : 100,
+        y : 20,
+        disparos : 30,
+        disparar : function(){
+        this.disparos--;
+        alert(this.name + "ha disparado");
+        }
+        };
+        miObjeto.disparar();
+}
+
+
+    class marcianito{
+        constructor (nombre, color){
+            this.nombre = nombre;
+            this.color = color;
+        }
+    }
+    class saludador{
+        static nombreConexion = "conexion";
+        static palabraSaludo = "Hola";
+        nombre = "Desconocido";
+        constructor (nombre){
+            this.nombre = nombre ||this.nombre; 
+        }
+        saludo(){
+            return `${saludador.palabraSaludo}, soy ${this.nombre}`;
+        }
+    }
+
+    class Tools {
+        static strToURL(str) {
+        return encodeURIComponent(str).replace(/%20/g, "+");
+        }
+        }
+        
+        class Rectangulo {
+            constructor(altura = 0, ancho = 0) {
+            this._altura = altura;
+            this._ancho = ancho;
+            this.var2 = 12;
+            let _var1;}
+            get var1(){
+                return this._var1;
+            }
+            set var1 (valor){
+                this._var1= valor;
+            }
+        }
+            
+        function test4Unidad3(){
+       /* let salud1 = new saludador('OuSi');
+        let ET = new marcianito('Rocky','Blanco');
+        document.write(salud1.saludo());
+        salud1.nuevaPropiedad = "Tengo una nueva propiedad, soy como un superalimento<br>";
+        document.write('<br>',salud1.nuevaPropiedad);
+        let marcianito1 = new marcianito("ALF", "Marron");
+        if(marcianito1.constructor == marcianito){
+            document.write('El tipo Correcto es Marcianito');
+        }
+        else{
+            document.write("No lo es");
+        }
+        document.write('<br>');
+        Tools.strToURL("La donna e mobile"); // "La+donna+e+mobile"
+        let toolkit = new Tools();
+        toolkit.strToURL("La donna e mobile"); //ERROR. El Método no existe*/
+        let r = new Rectangulo(10, 20);
+        r._var1 =25;
+            document.write('<br>',r._var1);
+    }    
+
+
+
+
+    function test5Unidad3(){
+        Array.prototype.average = function (){
+            let iTotal=0;
+            for(let i=0;i<this.length; i++)
+                iTotal+=this[i];
+                return iTotal/this.length;
+        }
+        let prueba = new Array(3,4,12,17);
+        document.write( "El resultado del average del array da: "+ prueba.average());
+    }
+
+    function move (direccion){
+
+        if (Array.prototype.average == undefined ){
+            document.write("Array prototype average == undefined<br>");
+        };
+    }
+    function test6Unidad3() {
+        const usuario = {
+            nombre: 'Juan Diego',
+            apellido: 'Bueno',
+            cursos: ['Cliente', 'Interfaces', 'Puesta del sol'],
+        };
+    
+        const getNombreCompleto = ({ nombre, apellido }) => `${nombre} ${apellido}`;
+        const {nombre, apellido} = usuario;
+        
+        console.log (nombre);
+        const{nombre: nuevoNombre}=usuario;
+        
+        console.log("Nuevo Nombre: " + nuevoNombre);
+        console.log("getNombreCompleto", getNombreCompleto(usuario));
+        
+        const nuevoUsuario ={
+            ...usuario,
+            apellido: 'Botto'
+        };
+        
+        console.log(nuevoUsuario.nombre);
+        console.log("getNombreCompleto", getNombreCompleto(nuevoUsuario));
+        const [primerCurso, ...otrosCursos] =nuevoUsuario.cursos;
+        
+        console.log(primerCurso);
+        console.log(otrosCursos);
+
+        const nuevoObjeto = {nuevoNombre, primerCurso};
+        console.log("nuevoObjeto: ", nuevoObjeto);
+        const suma = (...numeros) => numeros.reduce 
+        // Llamada con nombre y apellido
+        console.log("getNombreCompleto:", getNombreCompleto({ nombre: 'Yolanda', apellido: 'Iglesias' }));
+    
+        // Llamada con el objeto usuario
+        console.log("getNombreCompleto:", getNombreCompleto(usuario));
+    }
+    
+  

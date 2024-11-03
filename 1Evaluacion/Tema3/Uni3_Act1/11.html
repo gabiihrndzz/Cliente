@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script> 
+      /*Hacer un programa que, mediante una función e introducidos previamente dos números y un operador, realice el cálculo.*/
+      function ejercicio(op, num1, num2) {
+    let resultado;
+    switch (op) {
+        case '+':
+            resultado = num1 + num2;
+            break;
+        case '-':
+            resultado = num1 - num2;
+            break;
+        case '*':
+            resultado = num1 * num2;
+            break;
+        case '/':
+            resultado = num2 !== 0 ? num1 / num2 : "No se puede dividir entre cero";
+            break;
+        case '%':
+            resultado = num1 % num2;
+            break;
+    }
+    document.write("El resultado de " + num1 + " " + op + " " + num2 + " es: " + resultado);
+}
+
+
+</script>
+        <style>
+            body {
+                background-color: aliceblue;
+                text-align: center;
+                font-size: 20px;
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+let num1 = prompt("Introduce el primer valor: ");
+while (isNaN(num1) || num1 === "") {
+    alert("Valor incorrecto, debes introducir un número (num1)");
+    num1 = prompt("Introduce el primer valor: ");
+}
+num1 = parseInt(num1);
+
+let num2 = prompt("Introduce el segundo valor: ");
+while (isNaN(num2) || num2 === "") {
+    alert("Valor incorrecto, debes introducir un número (num2)");
+    num2 = prompt("Introduce el segundo valor: ");
+}
+num2 = parseInt(num2);
+
+let op = prompt("Introduzca caracter de operación: ");
+while (op !== '+' && op !== '-' && op !== '/' && op !== '*' && op !== '%') {
+    alert("Valor incorrecto, debes introducir un carácter de operación: + - / * %");
+    op = prompt("Introduzca caracter de operación: ");
+}
+
+ejercicio(op, num1, num2);
+        </script>
+    </body>
+</html>

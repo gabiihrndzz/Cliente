@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script> 
+      /*Hacer un programa que permita introducir dos caracteres, con depuración de datos de entrada, y
+        con una función permita comprobar cuál es el mayor de ellos.*/
+        function ejercicio(num1,num2) {
+            if(num1>num2){
+                document.write("El primer numero es el mayor de los dos: ", num1, ">", num2);
+            }
+            else if (num2>num1){
+                document.write("El segundo numero es el mayor de los dos: ", num2, ">", num1);
+            }
+            else{
+                document.write("Son iguales: ", num1, "=", num2);
+            }
+        }
+        </script>
+        <style>
+            body {
+                background-color: aliceblue;
+                text-align: center;
+                font-size: 20px;
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            let num1 = prompt ( "Introduce el primer valor: ");
+            let num2 = prompt ( "Introduce el segundo valor: ");
+            while (isNaN(num1) || num1 === "") {
+                alert("Debe ser un número(num1)");
+                num1 = prompt ( "Introduce el primer valor: ");
+            }
+            while (isNaN(num2) || num2 === "") {
+                alert("Debe ser un número (num2)");
+                num2 = prompt ( "Introduce el primer valor: ");
+            }
+
+            num1= parseInt(num1);
+            num2= parseInt(num2);
+
+            ejercicio(num1, num2);
+
+        </script>
+    </body>
+</html>

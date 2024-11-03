@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Clase en JavaScript</title>
+    <style>
+        body {
+            background-color: aliceblue;
+            text-align: center;
+            font-size: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestión de Usuarios</h1>
+    <p>Abre la consola para ver los resultados.</p>
+
+    <script>
+        // Clase para representar a una Persona (usuario)
+        class Persona {
+            constructor(usuario, claveAcceso, preguntaSeguridad, respuesta) {
+                this.usuario = usuario;
+                this.claveAcceso = claveAcceso;
+                this.preguntaSeguridad = preguntaSeguridad;
+                this.respuesta = respuesta;
+            }
+
+            // Método para verificar la respuesta de seguridad
+            verificarRespuesta(respuestaIngresada) {
+                return this.respuesta === respuestaIngresada;
+            }
+
+            // Método para mostrar información básica del usuario
+            mostrarInfo() {
+                console.log(`Usuario: ${this.usuario}`);
+            }
+        }
+
+        // Clase para gestionar los usuarios
+        class SistemaUsuarios {
+            constructor() {
+                this.usuarios = [];
+            }
+
+            // Método para agregar un usuario
+            altaUsuario(usuario, claveAcceso, preguntaSeguridad, respuesta) {
+                const nuevoUsuario = new Persona(usuario, claveAcceso, preguntaSeguridad, respuesta);
+                this.usuarios.push(nuevoUsuario);
+                console.log(`Usuario ${usuario} agregado exitosamente.`);
+            }
+
+            // Método para eliminar un usuario
+            bajaUsuario(usuario) {
+                const indice = this.usuarios.findIndex(u => u.usuario === usuario);
+                if (indice !== -1) {
+                    this.usuarios.splice(indice, 1);
+                    console.log(`Usuario ${usuario} eliminado exitosamente.`);
+                } else {
+                    console.log(`Usuario ${usuario} no encontrado.`);
+                }
+            }
+
+            // Método para modificar un usuario
+            modificarUsuario(usuario, nuevaClave, nuevaPregunta, nuevaRespuesta) {
+                const usuarioEncontrado = this.usuarios.find(u => u.usuario === usuario);
+                if (usuarioEncontrado) {
+                    usuarioEncontrado.claveAcceso = nuevaClave || usuarioEncontrado.claveAcceso;
+                    usuarioEncontrado.preguntaSeguridad = nuevaPregunta || usuarioEncontrado.preguntaSeguridad;
+                    usuarioEncontrado.respuesta = nuevaRespuesta || usuarioEncontrado.respuesta;
+                    console.log(`Usuario ${usuario} modificado exitosamente.`);
+                } else {
+                    console.log(`Usuario ${usuario} no encontrado.`);
+                }
+            }
+
+            // Método para consultar un usuario
+            consultarUsuario(usuario) {
+                const usuarioEncontrado = this.usuarios.find(u => u.usuario === usuario);
+                if (usuarioEncontrado) {
+                    usuarioEncontrado.mostrarInfo();
+                } else {
+                    console.log(`Usuario ${usuario} no encontrado.`);
+                }
+            }
+
+            // Método para listar todos los usuarios
+            listarUsuarios() {
+                console.log("Listado de Usuarios:");
+                this.usuarios.forEach(usuario => usuario.mostrarInfo());
+            }
+        }
+
+        // Ejemplo de uso del sistema de usuarios
+        const sistema = new SistemaUsuarios();
+
+        // Alta de usuarios
+        sistema.altaUsuario("Juan", "clave123", "¿Nombre de tu primera mascota?", "Fido");
+        sistema.altaUsuario("Maria", "clave456", "¿Ciudad de nacimiento?", "Madrid");
+
+        // Consultar un usuario
+        sistema.consultarUsuario("Juan");
+
+        // Modificar un usuario
+        sistema.modificarUsuario("Juan", "nuevaClave789", null, "NuevoFido");
+
+        // Intento de consulta con la nueva información
+        sistema.consultarUsuario("Juan");
+
+        // Baja de un usuario
+        sistema.bajaUsuario("Maria");
+
+        // Listado de usuarios después de las modificaciones
+        sistema.listarUsuarios();
+    </script>
+</body>
+</html>

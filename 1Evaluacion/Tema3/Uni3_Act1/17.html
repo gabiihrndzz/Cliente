@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Alumnos</title>
+    <style>
+        body {
+            background-color: aliceblue;
+            text-align: center;
+            font-size: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestión de Alumnos</h1>
+    <p>Abre la consola para ver los resultados.</p>
+
+    <script>
+        /* Realizar una clase que permita almacenar:
+            Empresa
+                CIF xx.xxxx.xxxxx.xxxx.
+                Ciclo alumno DAW, DAM, ASIR, …
+            Alumno
+                DNI xx.xxx.xxx-x
+                Ciclo DAM, DAW, ASIR, …
+                Año finalización Ciclo 2011
+            Permitir Altas, Bajas, Búsquedas de alumnos por Ciclo y por Año de finalización. */
+
+        // Clase Empresa
+        class Empresa {
+            constructor(cif, ciclo) {
+                this.cif = cif;
+                this.ciclo = ciclo;
+            }
+
+            mostrarInfo() {
+                console.log(`CIF: ${this.cif}, Ciclo: ${this.ciclo}`);
+            }
+        }
+
+        // Clase Alumno
+        class Alumno {
+            constructor(dni, ciclo, finalizacionCiclo) {
+                this.dni = dni;
+                this.ciclo = ciclo;
+                this.finalizacionCiclo = 2011;
+            }
+
+            mostrarInfo() {
+                console.log(`DNI: ${this.dni}, Ciclo: ${this.ciclo}, Año de finalización: ${this.finalizacionCiclo}`);
+            }
+        }
+
+        // Clase para gestionar los alumnos
+        class SistemaAlumnos {
+            constructor() {
+                this.alumnos = [];
+            }
+
+            // Método para agregar un alumno
+            altaAlumno(dni, ciclo, finalizacionCiclo) {
+                const nuevoAlumno = new Alumno(dni, ciclo, finalizacionCiclo);
+                this.alumnos.push(nuevoAlumno);
+                console.log(`Alumno con DNI ${dni} agregado exitosamente.`);
+            }
+
+            // Método para eliminar un alumno
+            bajaAlumno(dni) {
+                const indice = this.alumnos.findIndex(alumno => alumno.dni === dni);
+                if (indice !== -1) {
+                    this.alumnos.splice(indice, 1);
+                    console.log(`Alumno con DNI ${dni} eliminado exitosamente.`);
+                } else {
+                    console.log(`Alumno con DNI ${dni} no encontrado.`);
+                }
+            }
+
+            // Método para consultar un alumno por DNI
+            consultarAlumno(dni) {
+                const alumnoEncontrado = this.alumnos.find(alumno => alumno.dni === dni);
+                if (alumnoEncontrado) {
+                    alumnoEncontrado.mostrarInfo();
+                } else {
+                    console.log(`Alumno con DNI ${dni} no encontrado.`);
+                }
+            }
+
+            // Método para listar todos los alumnos
+            listarAlumnos() {
+                console.log("Listado de Alumnos:");
+                this.alumnos.forEach(alumno => alumno.mostrarInfo());
+            }
+
+            // Método para buscar alumnos por Ciclo
+            buscarPorCiclo(ciclo) {
+                console.log(`Alumnos en el ciclo ${ciclo}:`);
+                this.alumnos
+                    .filter(alumno => alumno.ciclo === ciclo)
+                    .forEach(alumno => alumno.mostrarInfo());
+            }
+
+            // Método para buscar alumnos por Año de finalización
+            buscarPorAnioFinalizacion(anio) {
+                console.log(`Alumnos que finalizaron en el año ${anio}:`);
+                this.alumnos
+                    .filter(alumno => alumno.finalizacionCiclo === anio)
+                    .forEach(alumno => alumno.mostrarInfo());
+            }
+        }
+
+        // Ejemplo de uso del sistema de alumnos
+        const sistema = new SistemaAlumnos();
+
+        // Alta de alumnos
+        sistema.altaAlumno("12345678A", "DAW", 2020);
+        sistema.altaAlumno("87654321B", "DAM", 2019);
+        sistema.altaAlumno("11223344C", "ASIR", 2020);
+
+        // Consultar un alumno específico
+        sistema.consultarAlumno("12345678A");
+
+        // Baja de un alumno
+        sistema.bajaAlumno("87654321B");
+
+        // Listado de alumnos después de la baja
+        sistema.listarAlumnos();
+
+        // Buscar alumnos por ciclo
+        sistema.buscarPorCiclo("DAW");
+
+        // Buscar alumnos por año de finalización
+        sistema.buscarPorAnioFinalizacion(2020);
+    </script>
+</body>
+</html>

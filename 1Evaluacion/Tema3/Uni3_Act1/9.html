@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script> 
+      /*Hacer un programa que mediante una función permita introducir un número y haga depuración de
+        datos de entrada.*/
+        </script>
+        <style>
+            body {
+                background-color: aliceblue;
+                text-align: center;
+                font-size: 20px;
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            let num1 = prompt ( "introduzca número: ");
+                while(isNaN(num1) || num1===""){
+                    num1 = prompt ("Valor incorrecto, introduzca número: ");
+                }            
+                    num1= parseInt(num1);
+
+                    document.write(num1, " es un numero");
+        </script>
+    </body>
+</html>

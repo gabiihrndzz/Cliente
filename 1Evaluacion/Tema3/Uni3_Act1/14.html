@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Clase en JavaScript</title>
+    <style>
+        body {
+            background-color: aliceblue;
+            text-align: center;
+            font-size: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <p>Abrir la consola para ver los resultados.</p>
+
+    <script>
+        // Definición de la clase Persona
+        class Persona {
+            // Propiedad pública
+            nombre;
+
+            // Propiedad privada
+            #edad;
+
+            // Constructor para inicializar las propiedades
+            constructor(nombre, edad) {
+                this.nombre = nombre; // Propiedad pública
+                this.#edad = edad; // Propiedad privada
+            }
+
+            // Método público
+            saludar() {
+                console.log(`Hola, mi nombre es ${this.nombre}.`);
+            }
+
+            // Método privado
+            #mostrarEdad() {
+                console.log(`Tengo ${this.#edad} años.`);
+            }
+
+            // Getter para obtener la edad (acceso controlado a la propiedad privada)
+            get edad() {
+                return this.#edad;
+            }
+
+            // Setter para actualizar la edad (con validación)
+            set edad(nuevaEdad) {
+                if (nuevaEdad >= 0) {
+                    this.#edad = nuevaEdad;
+                } else {
+                    console.log("La edad no puede ser negativa.");
+                }
+            }
+
+            // Método para llamar al método privado desde fuera
+            mostrarInfoCompleta() {
+                this.saludar();
+                this.#mostrarEdad();
+            }
+        }
+
+        // Crear una instancia de la clase Persona
+        const persona = new Persona("Gabriel", 18);
+        
+        // Uso de los métodos y propiedades
+        persona.mostrarInfoCompleta();  // Llama al método público que accede al método privado
+
+        console.log("Edad actual:", persona.edad);  // Obtiene la edad usando el getter
+        persona.edad =19;                         // Actualiza la edad usando el setter
+        console.log("Edad actualizada:", persona.edad); // Comprueba la edad actualizada
+
+        persona.edad = -5;                         // Intento de setear una edad no válida
+    </script>
+</body>
+</html>
