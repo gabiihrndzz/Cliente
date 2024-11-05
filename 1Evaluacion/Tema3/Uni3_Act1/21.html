@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Pizzas</title>
+    <style>
+        body {
+            background-color: aliceblue;
+            text-align: center;
+            font-size: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 15px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        caption {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestor de Pizzas</h1>
+    <div id="Pizza-list"></div>
+    <button onclick="crearPizza()">Crear Pizza</button>
+    <button onclick="mostrarPizzasEnTabla()">Mostrar Listado</button>
+
+    <script>
+        /*Crear un método de la clase String que trunque una cadena a la longitud dada, y añada un indicador
+        de cadena truncada*/
+        class Pizza {
+            constructor(tipo) {
+                this.tipo = tipo;
+            }
+
+            verPizza() {
+                return `Tipo de pizza: ${this.tipo}`;
+            }
+        }
+
+        // Array para almacenar las pizzas
+        let Pizzas = [
+            new Pizza('BBQ'),
+            new Pizza('4 Quesos'),
+            new Pizza('Pepperoni')
+        ];
+
+        // Función para mostrar las pizzas en una tabla
+        function mostrarPizzasEnTabla() {
+            let tabla = `
+                <table>
+                    <caption>Listado de Pizzas</caption>
+                    <tr>
+                        <th>Tipo de Pizza</th>
+                    </tr>
+            `;
+            Pizzas.forEach(pizza => {
+                tabla += `
+                    <tr>
+                        <td>${pizza.tipo}</td>
+                    </tr>
+                `;
+            });
+            tabla += `</table>`;
+            document.getElementById('Pizza-list').innerHTML = tabla;
+        }
+
+        // Función para crear una nueva pizza
+        function crearPizza() {
+            const tipo = prompt("¿Qué tipo de pizza desea agregar?");
+            if (tipo) {
+                Pizzas.push(new Pizza(tipo));
+            }
+        }
+    </script>
+</body>
+</html>

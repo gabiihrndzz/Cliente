@@ -1,34 +1,116 @@
- <!DOCTYPE html>
-<html>
-    <head>
-        <script> 
-      /*
-         Crear un objeto Persona que tenga dos propiedades: Nombre y DineroAhorrado, y dos métodos:
-        Ahorra y Gasta. Crea un Array con varias personas (con distintos nombres y distintas cantidades
-        de dinero ahorrado). Y muestra una pantalla similar a la siguiente, desde la que se pueda seleccionar
-        una persona (bien con el nombre o con su posición en la tabla) y una cantidad que podrá ahorrar o
-        gastar. Lógicamente, habrá que comprobar que no pueda gastar más dinero del que tenga ahorrado.*/
-             function  Persona (nom, dineroAhorrado){
-                let nom  = nom;
-                let dineroAhorrado = dineroAhorrado;
-                let persona = [nom, dineroAhorrado];
-                document.write(persona[nom,dineroAhorrado]);
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Ahorros</title>
+    <style>
+        body {
+            background-color: aliceblue;
+            text-align: center;
+            font-size: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 15px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        caption {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestor de Ahorros</h1>
+    <div id="persona-list"></div>
+
+    <script>
+        // Constructor de Persona
+        function Persona(nombre, dineroAhorrado) {
+            this.nombre = nombre;
+            this.dineroAhorrado = parseFloat(dineroAhorrado);
+        }
+
+        // Método para ahorrar
+        Persona.prototype.ahorrar = function(cantidad) {
+            this.dineroAhorrado += cantidad;
+            alert(`${this.nombre} ha ahorrado ${cantidad}. Total ahorrado: ${this.dineroAhorrado}`);
+        };
+
+        // Método para gastar
+        Persona.prototype.gastar = function(cantidad) {
+            if (cantidad > this.dineroAhorrado) {
+                alert(`${this.nombre} no puede gastar más de ${this.dineroAhorrado}`);
+            } else {
+                this.dineroAhorrado -= cantidad;
+                alert(`${this.nombre} ha gastado ${cantidad}. Total ahorrado: ${this.dineroAhorrado}`);
             }
-        </script>
-        <style>
-            body {
-                background-color: aliceblue;
-                text-align: center;
-                font-size: 20px;
-                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        };
+
+        // Array de personas
+        const personas = [
+            new Persona('Juan', 1000),
+            new Persona('Ana', 500),
+            new Persona('Luis', 300),
+        ];
+
+        // Función para mostrar las personas en una tabla
+        function mostrarPersonas() {
+            const lista = document.getElementById('persona-list');
+            let tablaHTML = '<table><caption>Personas y Ahorros</caption><tr><th>Persona</th><th>Total Dinero Ahorrado</th></tr>';
+            
+            personas.forEach((persona) => {
+                tablaHTML += `<tr><td>${persona.nombre}</td><td>${persona.dineroAhorrado}€</td></tr>`;
+            });
+            
+            tablaHTML += '</table>';
+            lista.innerHTML = tablaHTML; // Asignar el contenido de la tabla generado
+        }
+
+        // Mostrar la tabla al cargar la página
+        mostrarPersonas();
+
+        // Función para interactuar con el usuario
+        function seleccionarPersona() {
+            const index = prompt("Introduce el número de la persona (0 para Juan, 1 para Ana, 2 para Luis):");
+            const persona = personas[index];
+            if (persona) {
+                const accion = prompt("¿Deseas ahorrar o gastar? (ahorrar/gastar)").toLowerCase();
+                const cantidad = parseFloat(prompt("Introduce la cantidad:"));
+                
+                if (accion === 'ahorrar') {
+                    persona.ahorrar(cantidad);
+                } else if (accion === 'gastar') {
+                    persona.gastar(cantidad);
+                } else {
+                    alert("Acción no válida. Debes elegir 'ahorrar' o 'gastar'.");
+                }
+                mostrarPersonas(); // Volver a mostrar la tabla con los datos actualizados
+            } else {
+                alert("Número de persona no válido.");
             }
-        </style>
-    </head>
-    <body>
-        <script>
-            let nom = prompt ("Introduce nombre de la persona:  ");
-            let dineroAhorrado = prompt ("Cuanto dinero ahorro esa persona:  ");
-            Persona (nom,dineroAhorrado)
+        }
+
+        // Llamar a la función después de un segundo para permitir la interacción
+        setTimeout(seleccionarPersona, 1000);
     </script>
-    </body>
+</body>
 </html>

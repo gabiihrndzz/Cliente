@@ -237,4 +237,49 @@ function json(){
         console.log("getNombreCompleto:", getNombreCompleto(usuario));
     }
     
-  
+    class VentaRegularStrategy {
+        constructor(impuesto) {
+            this.impuesto = impuesto;
+        }
+        Calcular(importe) {
+            return importe + (importe * this.impuesto);
+        }
+    }
+    
+    class VentaConDescuentoStrategy {
+        constructor(impuesto, descuento) {
+            this.impuesto = impuesto;
+            this.descuento = descuento;
+        }
+    
+        Calcular(importe) {
+            return (importe + (importe * this.impuesto)) - this.descuento;
+        }
+    }
+    
+    class VentaClient {
+        constructor(strategy) {
+            this.strategy = strategy;
+        }
+    
+        SetStrategy(strategy) {
+            this.strategy = strategy;
+        }
+    
+        Calcular(importe) {
+            return this.strategy.Calcular(importe);
+        }
+    }
+    
+    function test9Unidad3() {
+        const ventaRegularStrategy = new VentaRegularStrategy(0.21);
+        const venta = new VentaClient(ventaRegularStrategy);
+        
+        document.write("Venta Regular: " + venta.Calcular(100) + "<br>");
+    
+        const ventaConDescuentoStrategy = new VentaConDescuentoStrategy(0.21, 10);
+        venta.SetStrategy(ventaConDescuentoStrategy);
+        
+        document.write("Venta con Descuento: " + venta.Calcular(100));
+    }
+    
