@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestor de Pizzas</title>
+    <title>Truncar Cadena</title>
     <style>
         body {
             background-color: aliceblue;
@@ -39,58 +39,30 @@
     </style>
 </head>
 <body>
-    <h1>Gestor de Pizzas</h1>
-    <div id="Pizza-list"></div>
-    <button onclick="crearPizza()">Crear Pizza</button>
-    <button onclick="mostrarPizzasEnTabla()">Mostrar Listado</button>
+    <h1>Para truncar cadena</h1>
 
+    
     <script>
-        /*Crear un método de la clase String que trunque una cadena a la longitud dada, y añada un indicador
-        de cadena truncada*/
-        class Pizza {
-            constructor(tipo) {
-                this.tipo = tipo;
-            }
+        let cadenaInicial = prompt("Introduzca una cadena de caracteres");
+        let trunc = prompt("Cuando quieres truncarla (cortarla para que a partir de ese caracter no haya mas escrito)");
+        trunc = parseInt(trunc);
 
-            verPizza() {
-                return `Tipo de pizza: ${this.tipo}`;
-            }
-        }
-
-        // Array para almacenar las pizzas
-        let Pizzas = [
-            new Pizza('BBQ'),
-            new Pizza('4 Quesos'),
-            new Pizza('Pepperoni')
-        ];
-
-        // Función para mostrar las pizzas en una tabla
-        function mostrarPizzasEnTabla() {
-            let tabla = `
-                <table>
-                    <caption>Listado de Pizzas</caption>
-                    <tr>
-                        <th>Tipo de Pizza</th>
-                    </tr>
-            `;
-            Pizzas.forEach(pizza => {
-                tabla += `
-                    <tr>
-                        <td>${pizza.tipo}</td>
-                    </tr>
-                `;
-            });
-            tabla += `</table>`;
-            document.getElementById('Pizza-list').innerHTML = tabla;
-        }
-
-        // Función para crear una nueva pizza
-        function crearPizza() {
-            const tipo = prompt("¿Qué tipo de pizza desea agregar?");
-            if (tipo) {
-                Pizzas.push(new Pizza(tipo));
+        function truncarCadena(cadena, longitud) {
+            if (cadena.length > longitud) {
+                return cadena.substring(0, longitud) ; // Trunca la cadena y añade el indicador
+            } else {
+                return cadena; // Si la cadena es más corta, no se trunca
             }
         }
+
+    let cadenaTrunca = truncarCadena(cadenaInicial, trunc);
+
+        // Método truncar en la clase String
+        document.write("La cadena inicial tiene un largo de : ", cadenaInicial.length);
+        document.write('<br>',cadenaInicial);
+        document.write("<br>La cadena tras truncarla tiene un largo de : ", parseInt(trunc));
+        document.write('<br>',cadenaTrunca);
+          
     </script>
 </body>
 </html>
