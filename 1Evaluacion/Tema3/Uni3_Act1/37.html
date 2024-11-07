@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ej37</title>
+    <style>
+        body {
+            background-color: aliceblue;
+            text-align: center;
+            font-size: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ej37</h1>
+    
+    <script>
+            /*Crear cuatro objetos Coche, con los atributos: Marca, Modelo, Año. Mostrar posteriormente todos
+            los coches con sus datos..*/
+
+                class Coche {
+                    constructor(marca, modelo, año) {
+                        this.marca = marca;
+                        this.modelo = modelo;
+                        this.año = año;
+                    }
+
+                    mostrarDatos() {
+                        document.write(`Marca: ${this.marca}, Modelo: ${this.modelo}, Año: ${this.año}<br>`);
+                    }
+                }
+
+                let coche1 = new Coche("Toyota", "Corolla", 2020);
+                let coche2 = new Coche("Ford", "Focus", 2018);
+                let coche3 = new Coche("Honda", "Civic", 2022);
+                let coche4 = new Coche("BMW", "X5", 2021);
+
+                coche1.mostrarDatos();
+                coche2.mostrarDatos();
+                coche3.mostrarDatos();
+                coche4.mostrarDatos();
+
+
+    </script>
+</body>
+</html>

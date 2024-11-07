@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ej38</title>
+    <style>
+        body {
+            background-color: aliceblue;
+            text-align: center;
+            font-size: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ej38</h1>
+    
+    <script>
+            /*Crear cuatro objetos Coche, con los atributos: Marca, Modelo, Año. Mostrar posteriormente todos
+            los coches con sus datos..*/
+            class Alumno {
+                constructor(nombre, nota1, nota2, nota3) {
+                    this.nombre = nombre;
+                    this.nota1 = nota1;
+                    this.nota2 = nota2;
+                    this.nota3 = nota3;
+                }
+
+                calcularNotaMedia() {
+                    return (this.nota1 + this.nota2 + this.nota3) / 3;
+                }
+            }
+
+            let alumnos = [];
+
+            function añadirAlumno(nombre, nota1, nota2, nota3) {
+                let alumno = new Alumno(nombre, nota1, nota2, nota3);
+                alumnos.push(alumno);
+            }
+
+            function eliminarAlumno(nombre) {
+                alumnos = alumnos.filter(alumno => alumno.nombre !== nombre);
+            }
+
+            function añadirNotas(nombre, nuevaNota1, nuevaNota2, nuevaNota3) {
+                let alumno = alumnos.find(alumno => alumno.nombre === nombre);
+                if (alumno) {
+                    alumno.nota1 = nuevaNota1;
+                    alumno.nota2 = nuevaNota2;
+                    alumno.nota3 = nuevaNota3;
+                }
+            }
+
+            function ordenarPorNombre() {
+                alumnos.sort((a, b) => a.nombre.localeCompare(b.nombre));
+            }
+
+            function ordenarPorNotaMedia() {
+                alumnos.sort((a, b) => a.calcularNotaMedia() - b.calcularNotaMedia());
+            }
+
+            function mostrarAlumnos() {
+                alumnos.forEach(alumno => {
+                    document.write(`Nombre: ${alumno.nombre}, Notas: ${alumno.nota1}, ${alumno.nota2}, ${alumno.nota3}, Nota Media: ${alumno.calcularNotaMedia().toFixed(2)}<br>`);
+                });
+            }
+
+            Alumno.prototype.notaMedia = function() {
+                return this.calcularNotaMedia();
+            };
+
+            añadirAlumno("Pepe", 7, 8, 9);
+            añadirAlumno("Luis", 5, 6, 7);
+            añadirAlumno("Ana", 8, 9, 10);
+            añadirAlumno("Pedro", 6, 6, 6);
+
+            document.write("Alumnos antes de ordenar:<br>");
+            mostrarAlumnos();
+            document.write("<br>")
+
+            ordenarPorNombre();
+            document.write("\nAlumnos ordenados por nombre:<br>");
+            mostrarAlumnos();
+            document.write("<br>")
+
+            ordenarPorNotaMedia();
+            document.write("\nAlumnos ordenados por nota media:<br>");
+            mostrarAlumnos();
+            document.write("<br>")
+
+            eliminarAlumno("Luis");
+            document.write("\nAlumnos después de eliminar a Luis:<br>");
+            mostrarAlumnos();
+            document.write("<br>")
+
+            añadirNotas("Ana", 10, 10, 10);
+            document.write("\nAlumnos después de actualizar las notas de Ana:<br>");
+            mostrarAlumnos();
+
+
+    </script>
+</body>
+</html>

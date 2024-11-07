@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ej35</title>
+    <style>
+        body {
+            background-color: aliceblue;
+            text-align: center;
+            font-size: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ej35</h1>
+    
+    <script>
+            /*Crear un Array de arrays que permita almacenar Nombres y 3 notas de alumnos.
+            a) Permitir añadir y eliminar alumnos y notas.
+            b) Añadir un nuevo elemento (Nota Media).
+            c) Mostrar el Array ordenado por nombres o por nota media
+            var alumno1 = new Array("Pepe", 5, 6, 6.5);
+            var alumno2 = new Array("Luis”, 4, 7, 7);
+            var alumno3 = new Array("Pedro", 8, 4.5, 3);
+            var Alumnos = new Array(alumno1, alumno2, alumno3);.*/
+
+            var alumno1 = ["Pepe", 5, 6, 6.5];
+            var alumno2 = ["Luis", 4, 7, 7];
+            var alumno3 = ["Pedro", 8, 4.5, 3];
+            var Alumnos = [alumno1, alumno2, alumno3];
+
+            function añadirAlumno(nombre, nota1, nota2, nota3) {
+                let nuevaNotaMedia = (nota1 + nota2 + nota3) / 3;
+                Alumnos.push([nombre, nota1, nota2, nota3, nuevaNotaMedia]);
+            }
+
+            function eliminarAlumno(nombre) {
+                Alumnos = Alumnos.filter(alumno => alumno[0] !== nombre);
+            }
+
+            function añadirNotas(nombre, nuevaNota1, nuevaNota2, nuevaNota3) {
+                let alumno = Alumnos.find(alumno => alumno[0] === nombre);
+                if (alumno) {
+                    alumno[1] = nuevaNota1;
+                    alumno[2] = nuevaNota2;
+                    alumno[3] = nuevaNota3;
+                    alumno[4] = (nuevaNota1 + nuevaNota2 + nuevaNota3) / 3;
+                }
+            }
+
+            function ordenarPorNombre() {
+                Alumnos.sort((a, b) => a[0].localeCompare(b[0]));
+            }
+
+            function ordenarPorNotaMedia() {
+                Alumnos.sort((a, b) => a[4] - b[4]);
+            }
+
+            function mostrarAlumnos() {
+                console.log("Alumnos y sus notas:");
+                Alumnos.forEach(alumno => {
+                    if (alumno[4] !== undefined) {
+                        console.log(`Nombre: ${alumno[0]}, Notas: ${alumno[1]}, ${alumno[2]}, ${alumno[3]}, Nota Media: ${alumno[4].toFixed(2)}`);
+                    } else {    
+                        console.log(`Nombre: ${alumno[0]}, Notas: ${alumno[1]}, ${alumno[2]}, ${alumno[3]}, Nota Media: No disponible`);
+                    }
+                });
+            }
+
+            mostrarAlumnos();
+
+            añadirAlumno("Maria", 7, 6, 8);
+            console.log("\nDespués de añadir a Maria:");
+            mostrarAlumnos();
+
+            añadirNotas("Pepe", 6, 7, 7.5);
+            console.log("\nDespués de actualizar las notas de Pepe:");
+            mostrarAlumnos();
+
+            eliminarAlumno("Luis");
+            console.log("\nDespués de eliminar a Luis:");
+            mostrarAlumnos();
+
+            ordenarPorNombre();
+            console.log("\nDespués de ordenar por nombre:");
+            mostrarAlumnos();
+
+            ordenarPorNotaMedia();
+            console.log("\nDespués de ordenar por nota media:");
+            mostrarAlumnos();
+
+    </script>
+</body>
+</html>

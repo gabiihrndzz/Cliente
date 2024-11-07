@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ej35</title>
+    <style>
+        body {
+            background-color: aliceblue;
+            text-align: center;
+            font-size: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ej36</h1>
+    
+    <script>
+            /*Realiza dos funciones, en la primera deberás pedir al usuario el resultado de una división. En la
+        segunda comprobarás si el resultado es correcto o no, devolviendo esa información a la primera función.
+        Mediante let aleatorio = Math.random() conseguimos un número aleatorio entre 0 y 1. Crear una
+        función con la que se obtenga un número aleatorio entre dos valores dados.*/
+
+            function obtenerNumeroAleatorio(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            function pedirResultadoDeDivision() {
+                let numero1 = obtenerNumeroAleatorio(1, 20); 
+                let numero2 = obtenerNumeroAleatorio(1, 10); 
+
+                while (numero2 === 0) {
+                    numero2 = obtenerNumeroAleatorio(1, 10);
+                }
+
+                let resultadoCorrecto = numero1 / numero2;
+
+                let respuestaUsuario = parseFloat(prompt(`¿Cuál es el resultado de ${numero1} / ${numero2}?`));
+
+                comprobarRespuesta(respuestaUsuario, resultadoCorrecto);
+            }
+
+            function comprobarRespuesta(respuestaUsuario, resultadoCorrecto) {
+                let resultadoCorrectoRedondeado = resultadoCorrecto.toFixed(2);
+                let respuestaUsuarioRedondeada = respuestaUsuario.toFixed(2);
+
+                if (resultadoCorrectoRedondeado === respuestaUsuarioRedondeada) {
+                    alert("¡Correcto! Has respondido bien.");
+                } else {
+                    alert(`Incorrecto. La respuesta correcta era: ${resultadoCorrectoRedondeado}`);
+                }
+            }
+
+            pedirResultadoDeDivision();
+
+    </script>
+</body>
+</html>

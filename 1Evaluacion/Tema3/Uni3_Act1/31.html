@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ej29</title>
+    <title>Ej31</title>
     <style>
         body {
             background-color: aliceblue;
@@ -14,19 +14,29 @@
     </style>
 </head>
 <body>
-    <h1>Ej28</h1>
+    <h1>Palindromos</h1>
 
     
     <script>
-        //Realizar una función recursiva que permita detectar, si una frase es palíndroma o no
-        let array1 = [1, 2, 3, 4];
-        
-        array1.unshift(9, 12);
-        
-            for (let i = 0; i < array1.length; i++) {
-                document.write(array1[i],', ');
+        function esPalindroma(frase) {
+            if (frase.length <= 1) {
+                return true;
             }
-
+            if (frase[0] !== frase[frase.length - 1]) {
+                return false; 
+            }
+            
+            return esPalindroma(frase.slice(1, -1));
+        }
+    
+        let frase = prompt("Introduzca una frase para ver si es palindroma o no:");
+    
+        if (esPalindroma(frase)) {
+            alert("La frase es un palíndromo.");
+        } else {
+            alert("La frase no es un palíndromo.");
+        }
     </script>
+    
 </body>
 </html>
