@@ -77,19 +77,100 @@
             <input type="button" value="click"/>
             <label id="lblError"></label>
         </form>-->
-            <div id="target"></div>
+          <!--  <div id="target"></div>
             <div class="envuelve-me">contenido molon</div>
-            <div class="envuelve-me">baby im touchin the sky</div>
+            <div class="envuelve-me">baby im touchin the sky</div>-->
+
+            <!--<h1>modelo de eventos del W3c </h1> 
+            <h3 id="w3c">Modelo w3c</h3>
+            <h3 id="w3canonima"> modelo con funciones anonimas</h3>-->
+
+              <select></select> 
+              <button>Añadir nota</button>
+              <br>
+              <textarea style="width:100%"></textarea>
+    </body>
+
 
         <script>
-            let elementos=document.querySelectorAll(".envuelve-me");
-            elementos.forEach((element)=>{
-                const wrapper = document.createElement("span");
-                element.parentNode.insertBefore(wrapper, element);
-                wrapper.appendChild(element);
-            });                    
-            
-            //let etiqueta= document.getElementById('lblEntrada');            etiqueta.classList.add('blue');            etiqueta.classList.add('red');
+         let cbTitulos=document.querySelector("select");
+         let txtNota = document.querySelector("textarea");
+         let estado;
+
+         function setEstado(nuevoEstado){
+            cbTitulos.textContent="";
+            for(let nombre of Object.keys(nuevoEstado.notas)){
+              let opcion = document.createElement("option");
+              opcion.textContent=nombre;
+              if(nuevoEstado.seleccionada == nombre) 
+                opcion.selected = true;
+            }
+            txtNota.value = nuevoEstado.notas[nuevoEstado.seleccionada]
+            localStorage.setItem("Notas",JSON.stringify(nuevoEstado));
+            estado=nuevoEstado;
+         }
+         
+         setEstado(
+          JSON.parse(localStorage.getItem("Notas"))|| {
+            notas:{"Lista de la compra": "Zanahorias\nTomates\nextintor"},
+            seleccionada: "Lista de la compra",
+          }
+         );
+
+         cbTitulos.addEventListener("change", () =>{
+          setEstado({notas:estado.notas, seleccionada: cbTitulos.value})
+         });
+
+         txtNota.addEventListener("change", () =>{
+          setEstado({
+            notas:Object.assign({}, estado.notas,
+            {[estado.seleccionada]: txtNota.value}),
+            seleccionada:estado.seleccionada
+          })
+         });
+         
+         document.querySelector("button").addEventListener("click",()=>{
+          let nombre = prompt ("Nombre de nota");
+          if (nombre){
+            setEstado({
+            notas:Object.assign({}, estado.notas,
+            {[nombre]: ""}),
+            seleccionada:nombre,
+            });
+          }
+          
+         });
+         
+         /* localStorage.setItem("nombreusuario", "mario");
+          console.log(localStorage.getItem("nombreusuario"));
+          localStorage.removeItem("nombreusuario");
+          console.log(localStorage.getItem("nombreusuario"));*/
+         
+         
+         /* document.getElementById("w3c")
+          .addEventListener('click',saludarUnaVez, false);
+          
+          document.getElementById("w3c").addEventListener('click',colorear,false);
+          document.getElementById("w3c").addEventListener('mouseover',colorear,false);*/
+          
+          /*target = document.getElementById('target');
+          let nuevoContenido = document.createTextNode("Texto agregado");
+          target.appendChild(nuevoContenido);
+          document.getElementById('target').style.backgroundColor='red';
+          let color = window.getComputedStyle(document.getElementById('target'));
+          console.log(color);;
+   
+          let elementos=document.querySelectorAll(".envuelve-me");
+          elementos.forEach((element)=>{                
+          const wrapper = document.createElement("span");                
+          element.parentNode.insertBefore(wrapper, element);                
+          wrapper.appendChild(element);});
+
+            document.querySelectorAll('h1[custom="banner"]');
+
+            $('h1[custom="banner"]');*/
+
+           //let etiqueta= document.getElementById('lblEntrada');            etiqueta.classList.add('blue');            etiqueta.classList.add('red');
             
 
             //etiqueta.classList.remove('blue');
