@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/MaderAviles.css">
+    <title>Página de Gabriel Hernandez MaderAviles</title>
+    <link rel="icon" href="imagenes_video/logo_.webp" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+            <!--MaderAvilés es una carpintería de maderas al corte donde los clientes acuden para hacer pedidos
+            de piezas de madera que son cortadas en el almacén a las medidas indicadas por el cliente. El
+            procedimiento habitual es el siguiente: el cliente llega con un pedido de varias piezas para cortar y
+            el empleado introduce el pedido en el programa. Cada pedido se identifica con un número-->
+</head>
+    <body>
+         <div class="container">
+            <nav>
+                <a href="MaderAviles.html"><div class="navMenu">Inicio</div></a>
+                <a href="portfolio/pedidos.html"><div class="navMenu">Pedidos</div></a>
+                <a href="portfolio/piezas.html"><div class="navMenu">Piezas</div></a>
+                <a href="portfolio/detalles.html"><div class="navMenu">Detalles de Pedidos</div></a>
+            </nav>
+            <h2 class="titulo">Página Oficial de MaderAvilés</h2>
+            <main>
+                Bienvenidos a MaderAvilés: Carpintería de Calidad en Asturias<br><br>
+                En MaderAvilés, somos una empresa de carpintería especializada en el corte de madera a medida, ubicada en la encantadora ciudad de Avilés, Asturias, España. Con años de experiencia en el sector, nos hemos convertido en un referente para profesionales y particulares que buscan soluciones personalizadas en madera de alta calidad. Nuestro compromiso es ofrecer productos excepcionales, adaptados a las necesidades específicas de cada cliente.<br><br>
+                </main>
+                <img src="imagenes/madera2.webp">
+                <main>
+                Nuestra tienda y almacén proporcionan un servicio eficiente y profesional: los clientes pueden solicitar cortes precisos en distintos tipos de madera, asegurando siempre los mejores acabados. Ya sea para proyectos de bricolaje, muebles personalizados o grandes instalaciones, en MaderAvilés garantizamos resultados que cumplen con los más altos estándares.<br><br>
+                En nuestra página web, hemos diseñado una experiencia fácil de usar con un menú de navegación intuitivo, ubicado en la parte superior izquierda. Desde allí, puedes acceder a las secciones clave de nuestro servicio: Pedidos, Piezas y Detalles de Productos. Esta funcionalidad permite gestionar y consultar tus pedidos, ver las piezas disponibles, y conocer detalles específicos de cada producto que ofrecemos.<br><br>
+            </main>
+            <img src="imagenes/madera1.jpeg">
+
+            <main>
+                Confía en MaderAvilés para dar vida a tus ideas en madera. ¡Tu proyecto merece la mejor calidad!<br>
+            </main>
+            </div>
+        <footer>
+            <div>
+                <i class="fas fa-map-marker-alt"> Avilés, Asturias, España</i>
+            </div>
+            <div>
+                &copy; Todos los derechos reservados MaderAvilés.   
+            </div>
+        </footer>
+        </body>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+        <script>
+            // Selección de los botones de submenú
+            const submenuBtns = document.querySelectorAll('.submenu-btn');
+        
+            submenuBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const submenu = btn.nextElementSibling;
+                    if (submenu) {
+                        submenu.classList.toggle('open');
+                    }
+                });
+            });
+        </script>
+</html>

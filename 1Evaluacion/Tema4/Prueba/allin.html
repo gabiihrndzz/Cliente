@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>Hola, jQuery</title>
+<style>
+body {
+    background-color: aliceblue;
+    display: flex;                /* Flexbox en el body */
+    flex-direction: column;       /* Alinear verticalmente */
+    justify-content: center;      /* Centrado vertical */
+    align-items: center;          /* Centrado horizontal */
+    height: 100vh;                /* Toma el 100% de la altura de la ventana */
+    margin: 0;                    /* Elimina el margen por defecto */
+    font-size: 20px;
+    text-align: center;
+}
+
+#box {
+    height: 5em;
+    width: 10em;                  /* Aumenta el ancho si deseas más contenido */
+    background-color: darkblue;
+    color: white;
+    display: flex;
+    justify-content: center;      /* Centra el texto dentro del div */
+    align-items: center;
+    margin-top: 20px;             /* Espaciado desde el botón */
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+h2 {
+    margin-bottom: 20px;          /* Espaciado debajo del título */
+}
+</style>
+</head>
+<body>
+<h2>Ocultar, mostrar, cambiar</h2>
+<div>
+    <button type="button" class="btn" id="executor">Ejecutar</button>
+</div>
+<div id="box">Contenido de la demo</div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
+$(function(){
+    $('#executor').click(function(){
+        $('#box').toggle(1000);
+    });
+});
+</script>
+</body>
+</html>

@@ -68,6 +68,10 @@
             .red{
                 color:red;
             }
+            #box {height: 5 em;
+width: 5em;
+background-color: darkblue;
+color: white;}
         </style>
     </head>
     <body>
@@ -85,15 +89,22 @@
             <h3 id="w3c">Modelo w3c</h3>
             <h3 id="w3canonima"> modelo con funciones anonimas</h3>-->
 
-              <select></select> 
+              <!--<select></select> 
               <button>Añadir nota</button>
               <br>
-              <textarea style="width:100%"></textarea>
-    </body>
-
-
-        <script>
-         let cbTitulos=document.querySelector("select");
+              <textarea style="width:100%"></textarea>-->
+          <h2>Ocultar, mostrar, cambiar</h2>
+          <div><button type="button" class="btn" id="executor">¡Ejecuta!</button></div>
+          <div id="box">Contenido de la demo</div>
+          <script src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery3.7.1.js'></script>
+                 
+            <script>
+              $(function(){
+                $('#executor').click(function(){
+                $('#box').toggle(100);})
+              });
+      
+         /*let cbTitulos=document.querySelector("select");
          let txtNota = document.querySelector("textarea");
          let estado;
 
@@ -139,7 +150,7 @@
             });
           }
           
-         });
+         });*/
          
          /* localStorage.setItem("nombreusuario", "mario");
           console.log(localStorage.getItem("nombreusuario"));
