@@ -96,7 +96,39 @@ button {
             color: inherit; /* Hereda el color del texto del contenedor padre */
             text-decoration: none; /* Elimina el subrayado */
         }
-        
+
+.buttons{
+    margin-right:400px;
+    margin-left: 400px;
+}
+
+.btn2 {
+text-align: center;
+align-items: center;
+background-color: #ffa95e;
+margin-bottom: 10px;
+padding: 10px 20px;
+cursor: pointer;
+font-family: NunitoXtra, serif;
+font-size: 20px;
+border: 2px solid black;
+color: var(--color-white);
+transition:
+    scale 0.25s ease-in, 
+    opacity 0.25s ease-in, 
+    filter 0.25s ease-in;}
+    .btn:hover{
+    scale: 1.1;}
+
+    .btns:has(.btn:hover) .btn:not(:hover) {
+    scale: 0.2; opacity: 0.2;
+    filter: blur (4px);    }
+
+    a {
+        color: inherit; /* Hereda el color del texto del contenedor padre */
+        text-decoration: none; /* Elimina el subrayado */
+    }
+
 .submenu {
     display: none;
     flex-direction: column;
@@ -110,6 +142,7 @@ button {
 
 table,td{
 border: 1px solid black;
+margin-right: 40px;
 }
 
 main{

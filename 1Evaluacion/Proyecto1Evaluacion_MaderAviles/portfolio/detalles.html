@@ -5,97 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/MaderAviles.css">
     <title>Página de Gabriel Hernandez MaderAviles</title>
-    <link rel="icon" href="imagenes_video/logo_.webp" type="image/x-icon">
+    <link rel="icon" href="../imagenes/madera1.jpeg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-
-            <!--MaderAvilés es una carpintería de maderas al corte donde los clientes acuden para hacer pedidos
-            de piezas de madera que son cortadas en el almacén a las medidas indicadas por el cliente. El
-            procedimiento habitual es el siguiente: el cliente llega con un pedido de varias piezas para cortar y
-            el empleado introduce el pedido en el programa. Cada pedido se identifica con un número-->
 </head>
-    <body>
-    <!--De un modo general, la aplicación manejará los siguientes datos:
-         Pedidos almacenará pedidos realizados por los clientes. Se deben utilizar los tipos de datos
-        más adecuados a cada campo (entero, decimal, booleano, cadena, etc.). Debe incluir la
-        siguiente información:
-            o Número de pedido: el número único que identifica al pedido.
-            o Cliente: nombre y apellidos del cliente, que permitirá al menos 50 caracteres.
-            o Fecha de pedido: la fecha de realización del pedido.
-            o Procesado: que indicará si el pedido ya ha sido procesado de forma completa
-            o Servido: que indicará si el pedido ya ha sido servido al cliente.-->
-         <div class="container">
-            <nav>
-                <a href="../MaderAviles.html"><div class="navMenu">Inicio</div></a>
-                <a href="pedidos.html"><div class="navMenu">Pedidos</div></a>
-                <a href="Piezas.html"><div class="navMenu">Piezas</div></a>
-                <a href="Detalles.html"><div class="navMenu">Detalles de Pedidos</div></a>
-            </nav>
-            <h3 class="titulo">Ver Detalles</h3>
-            <div class="submenu-container">
-                <div class="btn submenu-btn">Detalles del Producto: </div>
-                <div class="submenu">
-                    <table>
+<body>
+    <div class="container">
+        <nav>
+            <a href="../MaderAviles.html"><div class="navMenu">Inicio</div></a>
+            <a href="pedidos.html"><div class="navMenu">Pedidos</div></a>
+            <a href="Piezas.html"><div class="navMenu">Piezas</div></a>
+            <a href="Detalles.html"><div class="navMenu">Detalles de Pedidos</div></a>
+        </nav>
+        <h3 class="titulo">Ver Detalles de los Productos</h3>
+        <div class="submenu-container">
+            <div class="btn submenu-btn">Detalles del Producto: </div>
+            <div class="submenu">
+                <table id="tablaPiezas" border="1">
+                    <thead>
                         <tr>
-                            <td>Número de pedido: </td>
-                            <td>Cliente:</td>
-                            <td>Fecha de pedido:</td>
-                            <td>Procesado:</td>
-                            <td>Servido:</td>
+                            <th>Número de Pieza</th>
+                            <th>Largo (cm)</th>
+                            <th>Ancho (cm)</th>
+                            <th>Grosor (cm)</th>
+                            <th>Color</th>
+                            <th>Superficie</th>
+                            <th>Volumen (m³)</th>
                         </tr>
-                        <tr>
-                            <td> 3</td>
-                            <td>3 </td>
-                            <td> 33</td>
-                            <td>3 </td>
-                            <td>33 </td>
-                        </tr>
-                        <tr>
-                            <td>33 </td>
-                            <td>33 </td>
-                            <td>33 </td>
-                            <td> 33</td>
-                            <td>3</td>
-                        </tr>
-                    </table>
-                </div>
+                    </thead>
+                    <tbody id="bodyPiezas"></tbody>
+                </table>
             </div>
-    <!--Piezas. En este tipo de datos se recogen las piezas que pueden servirse en un pedido. Debe
-        incluir la siguiente información:
-            o Número de pieza. Aunque son piezas al corte, se identificará cada una de ellas de
-            forma única con un número entero.
-            o Número de pedido. Pedido al que está asociada la pieza. Al ser a medida, cada pieza
-            solo puede pertenecer a un pedido.
-            o Largo: el largo de la pieza en cm.
-            o Ancho: el ancho de la pieza en cm.
-            o Grosor: el grosor de la pieza en cm.
-            o Color: el color del chapeado de la pieza. Si se guarda con el color “Natural” quiere
-            decir que no lleva chapeado.
-            o AmbasCaras: si deben estar chapeadas las dos caras
-            o Cortada: que indicará si la pieza ya ha sido cortada-->
-            </div>
-        <footer>
-            <div>
-                <i class="fas fa-map-marker-alt"> Avilés, Asturias, España</i>
-            </div>
-            <div>
-                &copy; Todos los derechos reservados MaderAvilés.   
-            </div>
-        </footer>
-        </body>
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        </div>
+    </div>
+    <footer>
+        <div>
+            <i class="fas fa-map-marker-alt"> Avilés, Asturias, España</i>
+        </div>
+        <div>
+            &copy; Todos los derechos reservados MaderAvilés.   
+        </div>
+    </footer>
+</body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-        <script>
-            // Selección de los botones de submenú
-            const submenuBtns = document.querySelectorAll('.submenu-btn');
-        
-            submenuBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const submenu = btn.nextElementSibling;
-                    if (submenu) {
-                        submenu.classList.toggle('open');
-                    }
-                });
-            });
-        </script>
+<script src="piezas.js"></script>
 </html>
