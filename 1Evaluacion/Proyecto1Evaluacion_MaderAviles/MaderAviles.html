@@ -12,9 +12,9 @@
     <div class="container">
         <nav>
             <a href="MaderAviles.html"><div class="navMenu">Inicio</div></a>
-            <a href="portfolio/pedidos.html"><div class="navMenu">Pedidos</div></a>
-            <a href="portfolio/piezas.html"><div class="navMenu">Piezas</div></a>
-            <a href="portfolio/detalles.html"><div class="navMenu">Detalles de Pedidos</div></a>
+            <a href="#"><div class="navMenu">Pedidos</div></a>
+            <a href="#"><div class="navMenu">Piezas</div></a>
+            <a href="#"><div class="navMenu">Detalles de Pedidos</div></a>
         </nav>
         <h2 class="titulo">Página Oficial de MaderAvilés</h2>
         <main>
@@ -31,7 +31,56 @@
             Confía en MaderAvilés para dar vida a tus ideas en madera. ¡Tu proyecto merece la mejor calidad!<br>
         </main>
     </div>
-    <footer>
+    <h2 class="titulo">Piezas</h2>
+    <div class="buttons">
+        <button class="btn2" onclick="addPieza()">Añadir Pieza</button>
+        <button class="btn2" onclick="eliminarPieza()">Eliminar Pieza</button>
+        <button class="btn2" onclick="modificarPieza()">Modificar Pieza</button>
+        <button class="btn2" onclick="seleccionarPieza()">Seleccionar Pieza</button>
+    </div>
+    <div class="submenu-container">
+        <div class="btn submenu-btn">Detalles de las piezas: </div>
+        <div class="submenu">
+            <table id="tablaPiezas" border="1">
+                <thead>
+                    <tr>
+                        <th>Número de Pieza</th>
+                        <th>Largo (cm)</th>
+                        <th>Ancho (cm)</th>
+                        <th>Grosor (cm)</th>
+                        <th>Color</th>
+                        <th>Superficie</th>
+                        <th>Volumen (m³)</th>
+                    </tr>
+                </thead>
+                <tbody id="bodyPiezas"></tbody>
+            </table>
+    </div>
+    <h2 class="titulo">Pedidos</h2>
+    <div class="buttons">
+        <button class="btn2" onclick="addpedido()">Añadir Producto</button>
+        <button class="btn2" onclick="eliminarpedido()">Eliminar Producto</button>
+        <button class="btn2" onclick="modificarPedido()">Modificar Producto</button>
+        <button class="btn2" onclick="seleccionarpedido()">Seleccionar Producto</button>
+    </div>
+    <div class="submenu-container">
+        <div class="btn submenu-btn">Detalles de los pedidos: </div>
+        <div class="submenu">
+            <table id="tablapedidos" border="1">
+                <thead>
+                    <tr>
+                        <th>Número de Pieza</th>
+                        <th>Cliente</th> 
+                        <th>Fecha</th>
+                        <th>Procesado</th>
+                        <th>Servido</th>
+                    </tr>
+                </thead>
+                <tbody id="bodypedidos"></tbody>
+            </table>
+    </div>
+    </div>
+        <footer>
         <div>
             <i class="fas fa-map-marker-alt"> Avilés, Asturias, España</i>
         </div>
@@ -41,17 +90,6 @@
     </footer>
 </body>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script>
-    // Selección de los botones de submenú
-    const submenuBtns = document.querySelectorAll('.submenu-btn');
-    submenuBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const submenu = btn.nextElementSibling;
-            if (submenu) {
-                submenu.classList.toggle('open');
-            }
-        });
-    });
-</script>
+<script src="portfolio/pedidos.js"></script>
 </html>
     

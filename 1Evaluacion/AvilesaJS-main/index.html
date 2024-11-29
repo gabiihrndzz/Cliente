@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="./LogicaNegocio.js"></script>
+    <title>AvileSA</title>
+    <script>
+      const resetData = () => {
+        reinicializa();
+      };
+    </script>
+  </head>
+  <body>
+    <a href="lineas.html" target="_blank">Líneas</a>
+    <br />
+    <a href="paradas.html" target="_blank">Paradas</a>
+    <br />
+    <br />
+    <br />
+    <button id="reset">Reinicializa datos</button>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        let lineas = getLineas();
+        if (!lineas) inicializa();
+        
+      });
+      document.addEventListener("click", resetData, false);
+    </script>
+  </body>
+</html>
