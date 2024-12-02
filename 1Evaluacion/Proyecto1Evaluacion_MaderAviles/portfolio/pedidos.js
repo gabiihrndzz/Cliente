@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
     cargarPiezasGuardadas();
 });
+
 const submenuBtns = document.querySelectorAll('.submenu-btn');
 submenuBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -13,10 +14,12 @@ submenuBtns.forEach(btn => {
         }
     });
 });
+
+
 function addPieza() {
     let numeroPieza = prompt("Número de pieza:");
     if (!numeroPieza || !Number.isInteger(Number(numeroPieza)) || numeroPieza < 1) {
-        alert("Número de pieza inválido. Debe ser un entero mayor o igual a 1.");
+        alert("Número de pieza inválido. Debe ser un número entero mayor o igual a 1.");
         return;
     }
 
@@ -58,6 +61,64 @@ function agregarPiezaATabla(pieza) {
         <td>${pieza.volumen}</td>
     `;
 }
+
+function modificarPieza() {
+    let numeroPieza = prompt("Introduce el número de la pieza para modificar:");
+    if (!numeroPieza) {
+        alert("Número de pieza no válido.");
+        return;
+    }
+
+    let piezas = JSON.parse(localStorage.getItem("piezas")) || [];
+    let piezaIndex = piezas.findIndex(pieza => pieza.numeroPieza === numeroPieza);
+
+    if (piezaIndex === -1) {
+        alert("No se encontró la pieza con ese número.");
+        return;
+    }
+
+    let valor = prompt("¿Qué valor quieres cambiar de la pieza? (largo, ancho, grosor, color, superficie):").toLowerCase();
+    let nuevoValor;
+
+    if (["largo", "ancho", "grosor"].includes(valor)) {
+        nuevoValor = parseFloat(prompt(`Nuevo valor para ${valor}:`));
+        if (isNaN(nuevoValor) || nuevoValor <= 0) {
+            alert(`${valor} no válido. Debe ser un número positivo.`);
+            return;
+        }
+        piezas[piezaIndex][valor] = nuevoValor;
+        piezas[piezaIndex].volumen = calcularVolumen(piezas[piezaIndex].largo, piezas[piezaIndex].ancho, piezas[piezaIndex].grosor); // Recalcular volumen
+    } else if (valor === "color" || valor === "superficie") {
+        nuevoValor = prompt(`Nuevo valor para ${valor}:`);
+        piezas[piezaIndex][valor] = nuevoValor;
+    } else {
+        alert("Valor no reconocido.");
+        return;
+    }
+
+    localStorage.setItem("piezas", JSON.stringify(piezas));
+
+    // Actualizar solo la fila modificada en la tabla
+    actualizarFilaPieza(numeroPieza, piezas[piezaIndex]);
+
+    alert("Pieza modificada correctamente.");
+}
+
+function actualizarFilaPieza(numeroPieza, piezaActualizada) {
+    let tabla = document.getElementById("bodyPiezas").rows;
+    for (let i = 0; i < tabla.length; i++) {
+        if (tabla[i].cells[0].innerText === numeroPieza) {
+            tabla[i].cells[1].innerText = piezaActualizada.largo;
+            tabla[i].cells[2].innerText = piezaActualizada.ancho;
+            tabla[i].cells[3].innerText = piezaActualizada.grosor;
+            tabla[i].cells[4].innerText = piezaActualizada.color;
+            tabla[i].cells[5].innerText = piezaActualizada.superficie;
+            tabla[i].cells[6].innerText = piezaActualizada.volumen; 
+            break;
+        }
+    }
+}
+
 //v = l x b x h
 function calcularVolumen(largo, ancho, grosor) {
     return (parseFloat(largo * ancho * grosor) / 1000000);
@@ -95,95 +156,38 @@ function eliminarPieza() {
     cargarPiezasGuardadas();
 }
 
-function seleccionarPieza() {
-    let numeroPieza = prompt("Introduce el número de la pieza a seleccionar:");
-    if (!numeroPieza) {
+function consultarPieza() { 
+    let numeropieza = prompt("Introduce el número de la pieza para consultar:");
+    
+    if (!numeropieza) {
         alert("Número de pieza no válido.");
         return;
     }
+    let piezas = JSON.parse(localStorage.getItem("piezas")) || []; // Corregido 'pedidos' a 'piezas'
+    let piezaEncontrada = piezas.find(pieza => pieza.numeroPieza === numeropieza); // Corregido búsqueda
 
-    let nuevasPiezas = piezas.filter(pieza => pieza.numeroPieza !== numeroPieza);
-
-    if (piezas.length === nuevasPiezas.length) {
-        alert("No se encontró la pieza con ese número.");
+    if (!piezaEncontrada) {
+        alert("No se encontró una pieza con ese número.");
         return;
     }
 
-    localStorage.setItem("piezas", JSON.stringify(nuevasPiezas));
-
-    document.getElementById("bodyPiezas").innerHTML = "";
-    cargarPiezasGuardadas();
+    let detallesPieza = `
+        Número de Pieza: ${piezaEncontrada.numeroPieza}\n
+        Largo: ${piezaEncontrada.largo} cm\n
+        Ancho: ${piezaEncontrada.ancho} cm\n
+        Grosor: ${piezaEncontrada.grosor} cm\n
+        Color: ${piezaEncontrada.color}\n
+        Superficie: ${piezaEncontrada.superficie}\n
+        Volumen: ${piezaEncontrada.volumen} m³
+    `;
+    
+    alert(detallesPieza);
 }
 
-function modificarPedido() {
-    let numeroPedido = prompt("Introduce el número del pedido para modificar:");
-    if (!numeroPedido) {
-        alert("Número de pedido no válido.");
-        return;
-    }
-function isValidDate(dateString) {
-    const regEx = /^\d{4}-\d{2}-\d{2}$/;
-    if (!dateString.match(regEx)) return false;
-
-    const date = new Date(dateString);  // Crea una fecha a partir del string
-    const timestamp = date.getTime();  // Obtiene el timestamp (número de milisegundos)
-    if (typeof timestamp !== 'number' || Number.isNaN(timestamp)) return false;  // Verifica si la fecha es válida
-
-    // Compara la fecha ingresada con la fecha estándar
-    return dateString === date.toISOString().split('T')[0];  // Devuelve true si la fecha es válida y en formato correcto
-}
-
-    // Leer pedidos de localStorage
-    let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
-    let pedidoEncontrado = pedidos.find(pedido => pedido.numeropedido === numeroPedido);
-
-    if (!pedidoEncontrado) {
-        alert("No se encontró el pedido con ese número.");
-        return;
-    }
-
-    let valor = prompt("¿Qué valor quieres cambiar del pedido? (cliente, fecha, procesado, servido):").toLowerCase();
-    let nuevoValor;
-
-    if (valor === "fecha") {
-        nuevoValor = prompt("Nueva fecha (YYYY-MM-DD):");
-
-        // Validar fecha
-        if (!isValidDate(nuevoValor)) {
-            alert("Fecha no válida. El formato correcto es YYYY-MM-DD.");
-            return;
-        }
-
-        // Validar que la fecha no sea posterior a la actual
-        let fechaActual = new Date();
-        let fechaPedido = new Date(nuevoValor);
-        if (fechaPedido > fechaActual) {
-            alert("La fecha no puede ser posterior al día de hoy.");
-            return;
-        }
-
-        pedidoEncontrado.fecha = nuevoValor;
-    } else if (["cliente", "procesado", "servido"].includes(valor)) {
-        nuevoValor = prompt(`Nuevo valor para ${valor}:`);
-        pedidoEncontrado[valor] = nuevoValor;
-    } else {
-        alert("Valor no reconocido.");
-        return;
-    }
-
-    // Guardar la lista actualizada en localStorage
-    localStorage.setItem("pedidos", JSON.stringify(pedidos));
-
-    // Recargar la tabla
-    document.getElementById("bodypedidos").innerHTML = "";
-    cargarpedidosGuardadas();
-    alert("Pedido modificado correctamente.");
-}
-// Función para añadir una nueva pedido
 function addpedido() {
     let numeropedido = prompt("Número de pedido:");
     if (!numeropedido || !Number.isInteger(Number(numeropedido)) || numeropedido < 1) {
-        alert("Número de pedido inválido. Debe ser un entero mayor o igual a 1.");
+        alert("Número de pedido inválido. Debe ser un número entero mayor o igual a 1.");
         return;
     }
 
@@ -210,8 +214,6 @@ function addpedido() {
     alert("Pedido añadido correctamente.");
 }
 
-
-// Función para agregar una pedido a la tabla
 function agregarpedidoATabla(pedido) {
     let tabla = document.getElementById("bodypedidos");
     let nuevaFila = tabla.insertRow(-1);
@@ -225,20 +227,73 @@ function agregarpedidoATabla(pedido) {
     `;
 }
 
-// Función para guardar una pedido en localStorage
+function modificarPedido() {
+    let numeroPedido = prompt("Introduce el número del pedido para modificar:");
+    if (!numeroPedido) {
+        alert("Número de pedido no válido.");
+        return;
+    }
+function isValidDate(dateString) {
+    const regEx = /^\d{4}-\d{2}-\d{2}$/;
+    if (!dateString.match(regEx)) return false;
+
+    const date = new Date(dateString);  
+
+    return dateString === date.toISOString().split('T')[0];
+}
+    let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+    let pedidoEncontrado = pedidos.find(pedido => pedido.numeropedido === numeroPedido);
+
+    if (!pedidoEncontrado) {
+        alert("No se encontró el pedido con ese número.");
+        return;
+    }
+
+    let valor = prompt("¿Qué valor quieres cambiar del pedido? (cliente, fecha, procesado, servido):").toLowerCase();
+    let nuevoValor;
+
+    if (valor === "fecha") {
+        nuevoValor = prompt("Nueva fecha (YYYY-MM-DD):");
+
+        if (!isValidDate(nuevoValor)) {
+            alert("Fecha no válida. El formato correcto es YYYY-MM-DD.");
+            return;
+        }
+
+        let fechaActual = new Date();
+        let fechaPedido = new Date(nuevoValor);
+        if (fechaPedido > fechaActual) {
+            alert("La fecha no puede ser posterior al día de hoy.");
+            return;
+        }
+
+        pedidoEncontrado.fecha = nuevoValor;
+    } else if (["cliente", "procesado", "servido"].includes(valor)) {
+        nuevoValor = prompt(`Nuevo valor para ${valor}:`);
+        pedidoEncontrado[valor] = nuevoValor;
+    } else {
+        alert("Valor no reconocido.");
+        return;
+    }
+
+    localStorage.setItem("pedidos", JSON.stringify(pedidos));
+
+    document.getElementById("bodypedidos").innerHTML = "";
+    cargarpedidosGuardadas();
+    alert("Pedido modificado correctamente.");
+}
+
 function guardarpedido(pedido) {
     let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
     pedidos.push(pedido);
     localStorage.setItem("pedidos", JSON.stringify(pedidos));
 }
 
-// Función para cargar las pedidos guardadas
 function cargarpedidosGuardadas() {
     let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
     pedidos.forEach(pedido => agregarpedidoATabla(pedido));
 }
 
-// Función para eliminar una pedido por número de pedido
 function eliminarpedido() {
     let numeropedido = prompt("Introduce el número de la pedido a eliminar:");
     if (!numeropedido) {
@@ -254,85 +309,35 @@ function eliminarpedido() {
         return;
     }
 
-    // Actualizar localStorage
     localStorage.setItem("pedidos", JSON.stringify(nuevaspedidos));
 
-    // Recargar la tabla
     document.getElementById("bodypedidos").innerHTML = "";
     cargarpedidosGuardadas();
 }
 
-function seleccionarpedido() {
-    let numeropedido = prompt("Introduce el número de la pedido a seleccionar:");
+function consultarPedido() {
+    let numeropedido = prompt("Introduce el número del pedido para consultar:");
+    
     if (!numeropedido) {
         alert("Número de pedido no válido.");
         return;
     }
+    let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+    let pedidoEncontrado = pedidos.find(pedido => pedido.numeropedido === numeropedido);
 
-    /*let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];*/
-    let nuevaspedidos = pedidos.filter(pedido => pedido.numeropedido !== numeropedido);
-
-    if (pedidos.length === nuevaspedidos.length) {
-        alert("No se encontró la pedido con ese número.");
+    if (!pedidoEncontrado) {
+        alert("No se encontró un pedido con ese número.");
         return;
     }
 
-    // Actualizar localStorage
-    localStorage.setItem("pedidos", JSON.stringify(nuevaspedidos));
-
-    // Recargar la tabla
-    document.getElementById("bodypedidos").innerHTML = "";
-    cargarpedidosGuardadas();
-}
-
-function modificarPieza() {
-    let numeroPieza = prompt("Introduce el número de la pieza para modificar:");
-    if (!numeroPieza) {
-        alert("Número de pieza no válido.");
-        return;
-    }
+    let detallesPedido = `
+        Número de Pedido: ${pedidoEncontrado.numeropedido}\n
+        Cliente: ${pedidoEncontrado.cliente}\n
+        Fecha: ${pedidoEncontrado.fecha}\n
+        ¿Procesado? ${pedidoEncontrado.procesado}\n
+        ¿Servido? ${pedidoEncontrado.servido}
+    `;
     
-
-    // Leer piezas de localStorage
-    let piezas = JSON.parse(localStorage.getItem("piezas")) || [];
-    console.log("Piezas cargadas:", piezas); // Depuración
-
-    let piezaEncontrada = piezas.find(pieza => pieza.numeroPieza === numeroPieza);
-    console.log("Pieza encontrada:", piezaEncontrada); // Depuración
-
-    if (!piezaEncontrada) {
-        alert("No se encontró la pieza con ese número.");
-        return;
-    }
-
-    let valor = prompt("¿Qué valor quieres cambiar de la pieza? (largo, ancho, grosor, color, superficie)").toLowerCase();
-    let nuevoValor;
-
-    switch (valor) {
-        case "largo":
-        case "ancho":
-        case "grosor":
-        case "color":
-        case "superficie":
-            nuevoValor = prompt(`Nuevo valor para ${valor}:`);
-            piezaEncontrada[valor] = nuevoValor;
-            break;
-        default:
-            alert("Valor no reconocido.");
-            return;
-    }
-
-    // Recalcular el volumen si alguno de los valores numéricos cambia
-    if (["largo", "ancho", "grosor"].includes(valor)) {
-        piezaEncontrada.volumen = calcularVolumen(piezaEncontrada.largo, piezaEncontrada.ancho, piezaEncontrada.grosor);
-    }
-
-    // Guardar la lista actualizada en localStorage
-    localStorage.setItem("piezas", JSON.stringify(piezas));
-    console.log("Piezas actualizadas:", piezas); // Depuración
-
-    // Recargar la tabla
-    document.getElementById("bodyPiezas").innerHTML = "";
-    cargarPiezasGuardadas();
-    alert("Pieza modificada correctamente.");
+    alert(detallesPedido);
+    
 }
