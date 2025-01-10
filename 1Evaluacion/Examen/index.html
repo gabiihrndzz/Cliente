@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlightEX - Empresa de Vuelos</title>
+    <style>
+        *{
+            background-color: aliceblue;
+            text-align: justify;
+        }
+
+        body {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        input, button {
+            margin: 10px 0;
+            padding: 8px;
+            font-size: 16px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<h1>FlightEX</h1>
+
+<h2>Añadir vuelo</h2>
+<form id="formAnadir">
+    <label for="codigo">Código: </label><input type="text" id="codigo" required>
+    <label for="plazas">Nº de Plazas: </label><input type="number" id="plazas" required>
+    <label for="importe">Importe (€): </label><input type="number" id="importe" step="0.01" required>
+    <button type="submit">Añadir</button>
+</form>
+
+<h2>Modificar vuelo</h2>
+<form id="formModificar">
+    <label for="modcodigo">Código: </label><input type="text" id="modcodigo" required>
+    <label for="modplazas">Nuevo Número de Plazas: </label><input type="number" id="modplazas" required>
+    <label for="modimporte">Nuevo Importe (€): </label><input type="number" id="modimporte" step="0.01" required>
+    <button type="submit">Modificar Datos</button>
+</form>
+
+<button id="calcularIngreso">Calcular Ingreso</button>
+
+<h2>Lista de vuelos</h2>
+<table id="tablavuelos">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Nº de Plazas</th>
+            <th>Importe (€)</th>
+            <th>Ingreso (€)</th>
+            <th>Rentabilidad</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<h2>Vuelos muy rentables</h2>
+<table id="tablaMuyRentables">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Nº de Plazas</th>
+            <th>Ingreso (€)</th>
+            <th>Importe (€)</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html> 

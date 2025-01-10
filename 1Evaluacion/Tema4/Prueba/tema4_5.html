@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulación de Contenido</title>
+</head>
+<body>
+    <h1>Manipulación de Contenido</h1>
+    <div id="target">Texto inicial</div>
+    <button id="add-text-btn">Agregar texto</button>
+
+    <script>
+        const target = document.getElementById("target");
+        const button = document.getElementById("add-text-btn");
+
+        button.addEventListener("click", () => {
+            const nuevoContenido = document.createTextNode("Texto agregado dinámicamente.");
+            target.appendChild(nuevoContenido);
+            target.style.backgroundColor = "red"; // Cambiar color del fondo
+        });
+    </script>
+</body>
+</html>

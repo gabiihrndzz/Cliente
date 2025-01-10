@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelo W3C</title>
+    <style>
+        h3 {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Modelo de Eventos del W3C</h1>
+    <h3 id="w3c">Modelo W3C</h3>
+    <h3 id="w3canonima">Modelo con funciones anónimas</h3>
+
+    <script>
+        function saludarUnaVez(event) {
+            alert("¡Hola! Este evento solo se ejecuta una vez.");
+            event.currentTarget.removeEventListener("click", saludarUnaVez); 
+        }
+
+        function colorear(event) {
+            event.currentTarget.style.color = "red"; 
+        }
+
+        const w3cElement = document.getElementById("w3c");
+        w3cElement.addEventListener("click", saludarUnaVez, false); 
+        w3cElement.addEventListener("click", colorear, false); 
+        w3cElement.addEventListener("mouseover", colorear, false);
+
+        document.getElementById("w3canonima").addEventListener("click", function () {
+            alert("¡Has hecho clic en el modelo con funciones anónimas!");
+            this.style.color = "blue"; 
+        });
+    </script>
+</body>
+</html>

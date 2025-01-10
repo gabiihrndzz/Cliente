@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notas en LocalStorage</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery3.7.1.js"></script>
+</head>
+<body>
+    <h2>Notas en LocalStorage</h2>
+    <select id="cbTitulos"></select>
+    <textarea id="txtNota" style="width:100%;"></textarea>
+    <button id="add-note">Añadir Nota</button>
+
+    <script>
+        let cbTitulos = document.querySelector("#cbTitulos");
+        let txtNota = document.querySelector("#txtNota");
+        let estado;
+
+        function setEstado(nuevoEstado) {
+            cbTitulos.textContent = "";
+            for (let nombre of Object.keys(nuevoEstado.notas)) {
+                let opcion = document.createElement("option");
+                opcion.textContent = nombre;
+                if (nuevoEstado.seleccionada == nombre) 
+                    opcion.selected = true;
+                cbTitulos.appendChild(opcion);
+            }
+            txtNota.value = nuevoEstado.notas[nuevoEstado.seleccionada];
+            localStorage.setItem("Notas", JSON.stringify(nuevoEstado));
+            estado = nuevoEstado;
+        }
+
+        setEstado(
+            JSON.parse(localStorage.getItem("Notas")) || {
+                notas: { "Lista de la compra": "Zanahorias\nTomates\nExtintor" },
+                seleccionada: "Lista de la compra",
+            }
+        );
+
+        cbTitulos.addEventListener("change", () => {
+            setEstado({ notas: estado.notas, seleccionada: cbTitulos.value });
+        });
+
+        txtNota.addEventListener("change", () => {
+            setEstado({
+                notas: Object.assign({}, estado.notas, {
+                    [estado.seleccionada]: txtNota.value,
+                }),
+                seleccionada: estado.seleccionada,
+            });
+        });
+
+        document.querySelector("#add-note").addEventListener("click", () => {
+            let nombre = prompt("Nombre de la nota:");
+            if (nombre) {
+                setEstado({
+                    notas: Object.assign({}, estado.notas, { [nombre]: "" }),
+                    seleccionada: nombre,
+                });
+            }
+        });
+    </script>
+</body>
+</html>

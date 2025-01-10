@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de IMC</title>
+</head>
+<body>
+    <h1>Sistema de Cálculo de IMC</h1>
+
+    <h2>Añadir Persona</h2>
+    <form id="form-agregar">
+        <input type="text" id="nombre" placeholder="Nombre" required>
+        <input type="number" id="peso" placeholder="Peso (kg)" required step="0.1">
+        <input type="number" id="altura" placeholder="Altura (m)" required step="0.01">
+        <button type="submit">Añadir Persona</button>
+    </form>
+
+    <h2>Modificar Persona</h2>
+    <form id="form-modificar">
+        <input type="text" id="mod-nombre" placeholder="Nombre a modificar" required>
+        <input type="number" id="mod-peso" placeholder="Nuevo Peso (kg)" required step="0.1">
+        <input type="number" id="mod-altura" placeholder="Nueva Altura (m)" required step="0.01">
+        <button type="submit">Modificar Persona</button>
+    </form>
+
+    <h2>Resultados</h2>
+    <button id="btn-calcular">Calcular IMC</button>
+    <div id="resultados"></div>
+    <div id="fuera-rango"></div>
+
+    <script src="1.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta Blog</title>
+</head>
+<body>
+    <template id="plantilla-tarjeta">
+        <style>
+            .tarjeta {
+                border: 1px solid #ddd;
+                width: 200px;
+                padding: 10px;
+            }
+            .encabezado {
+                padding: 10px;
+                border-bottom: 1px solid #ddd; /* Corregido #dd */
+            }
+            .contenido {
+                margin-top: 10px;
+            }
+        </style>
+        <div class="tarjeta">
+            <div class="encabezado">
+                <p class="titulo">
+                    <span class="subtitulo"></span>
+                </p>
+            </div>
+            <div class="contenido">
+                <p class="sinopsis"></p>
+            </div>    
+        </div>
+    </template>
+
+    <!-- Aquí se insertará la tarjeta dinámica -->
+    <tarjeta-blog></tarjeta-blog>
+
+    <script src="tarjetaBlo.js"></script>
+</body>
+</html>

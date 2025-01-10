@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contenido Dinámico</title>
+</head>
+<body>
+    <div id="target"></div>
+    <div class="envuelve-me">contenido molon</div>
+    <div class="envuelve-me">baby im touchin the sky</div>
+    <button id="wrap">Envolver Elementos</button>
+
+    <script>
+        let target = document.getElementById("target");
+        let nuevoContenido = document.createTextNode("Texto agregado");
+        target.appendChild(nuevoContenido);
+        target.style.backgroundColor = "red";
+
+        document.getElementById("wrap").addEventListener("click", () => {
+            let elementos = document.querySelectorAll(".envuelve-me");
+            elementos.forEach((element) => {
+                const wrapper = document.createElement("span");
+                element.parentNode.insertBefore(wrapper, element);
+                wrapper.appendChild(element);
+            });
+            alert("Elementos envueltos correctamente.");
+        });
+    </script>
+</body>
+</html>
