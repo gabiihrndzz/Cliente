@@ -45,8 +45,14 @@ import Rerenderizable from './componentes/Rerenderizable';
 import RerenderizadorSinCambioProps from './componentes/RerenderizadorSinCambioProps';
 import NoRerenderizadorConCambioProps from './componentes/NoRerenderizadorConCambioProps';
 import MiComponente from './componentes/miComponente';
-import AlternaMensaje from './componentes/AlternaMensaje';
-
+//import AlternaMensaje from './componentes/AlternaMensaje';
+import Pie from './componentes/Pie';
+import Encabezado from './componentes/Encabezado';
+import Saludo from './componentes/Saludo';
+import Formularios from './componentes/Formularios';
+import { AppContext, valoresDefecto } from './AppContext';
+import { divide } from 'lodash';
+import FormControlado from './componentes/FormControlado';
 
 function App() {
   // Array de rutas de las imágenes
@@ -230,10 +236,32 @@ function App() {
 //     </>
 //   </main>
 
-//     )
+//      )
+
+
+// return (
+//   <div >
+//   <AppContext.Provider value={valoresDefecto}>
+//   <Encabezado />
+//   <div>Esto simplemente es contenido.</div>
+//   <Pie />
+//   </AppContext.Provider>
+//   </div>
+//   )
+// const nombre = "";
+// return (
+//   <div className='App'>
+//     <Saludo nombre="Gabi" />
+//   </div>  
+// )
+<div>
+    <form>
+      <FormControlado></FormControlado>
+    </form>
+</div>
+
 
 
 }
-
 
 export default App;
