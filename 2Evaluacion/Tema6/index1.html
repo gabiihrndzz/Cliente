@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventana Principal</title>
+</head>
+<body>
+    <h1>Ventana principal</h1>
+    <button id="abrePopup">Abrir ventana</button>
+    <button id="enviaMensaje">Enviar mensaje</button>
+
+    <script>
+        let popup;
+
+        document.getElementById("abrePopup").addEventListener("click", () => {
+            popup = window.open("popup.html", "Popup", "width=400,height=300");
+        });
+
+        document.getElementById("enviaMensaje").addEventListener("click", () => {
+            if (popup && !popup.closed) {
+                popup.postMessage("Te saludo desde la ventana principal", "*");
+            } else {
+                alert('La ventana emergente no está abierta');
+            }
+        });
+    </script>
+</body>
+</html>
