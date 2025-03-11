@@ -24,7 +24,7 @@ const Visor = (props) => {
     const primera = () => {
         setIndiceActual(0);
     };
-
+    
     const ultima = () => {
         setIndiceActual(imagenes.length - 1);
     };

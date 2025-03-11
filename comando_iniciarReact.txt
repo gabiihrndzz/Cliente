@@ -1,0 +1,6 @@
+npm install -g create-react-app
+create-react-app "      "
+npx create-react-app "        "
+npm audit fix -force
+npm install web-vitals
+npm start

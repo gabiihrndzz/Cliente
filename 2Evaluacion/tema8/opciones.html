@@ -1,0 +1,46 @@
+<html>
+<head>
+<script>
+let opciones;
+const listaOpciones = (opciones) => {
+let cbOpciones = document.getElementById("cbOpciones");
+for (let i = 0; i < opciones.length; i++)
+cbOpciones.options[i] = new Option(opciones[i].firstChild.data);
+};
+const getOpcion = (opc) => {
+let XMLHttpRequestObject = new XMLHttpRequest();
+url = `http://localhost:8000/opciones.php?esquema=${opc}`;
+event.preventDefault();
+if (XMLHttpRequestObject) {
+XMLHttpRequestObject.open("GET", url);
+XMLHttpRequestObject.onreadystatechange = () => {
+if (XMLHttpRequestObject.readyState == 4) {
+if (XMLHttpRequestObject.status == 200) {
+let xmlDoc = XMLHttpRequestObject.responseXML;
+opciones = xmlDoc.getElementsByTagName("opcion");
+listaOpciones(opciones);
+}
+}
+};
+XMLHttpRequestObject.send(null);
+}
+};
+const setOpcion = () => {
+document.getElementById("targetDiv").style.color =
+opciones[
+document.getElementById("cbOpciones").selectedIndex
+].firstChild.data;
+};
+</script>
+</head>
+<body>
+<h1>Usando Ajax y XML</h1>
+<form>
+<select size="1" id="cbOpciones" onchange="setOpcion()">
+<option>Selecciona un esquema</option>
+</select>
+<button onclick="getOpcion(1)">Usar esquema 1</button>
+<button onclick="getOpcion(2)">Usar esquema 2</button>
+</form>
+<div id="targetDiv" width="100" height="100">Aplica color a este texto</div>
+</body>

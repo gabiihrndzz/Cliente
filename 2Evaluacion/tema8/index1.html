@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>Probando Ajax</title>
+<script>
+… aquí iría el getData
+</script>
+<style>
+.imagenes { display: flex;
+justify-content: center;
+gap: 20px; }
+.imagenes img { width: 400px;
+height: auto;
+object-fit: cover; }
+</style>
+</head>
+<body>
+<h1>Mouseovers interactivos</h1>
+<div class="imagenes">
+<img src="sandwich.jpg" onmouseover="getData('sandwiches.txt', 'targetDiv')" />
+<img src="pizza.jpg" onmouseover="getData('pizzas.txt','targetDiv')" />
+<img src="sopa.jpg" onmouseover="getData('sopas.txt','targetDiv')" />
+</div>
+<div id="targetDiv">
+<p>Bienvenido a mi restaurante</p>
+</div>
+</body>
+</html>

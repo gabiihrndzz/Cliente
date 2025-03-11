@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script> 
+    const XHR = new XMLHttpRequest();
+    const getData = (dataSource, divID) => {
+        event.preventDefault ();
+        if (XHR){
+            const obj = document.getElementById(divID);
+            XHR.open("GET", dataSource);
+            XHR.onreadystatechange = ( ) =>{
+                if (XHR.readyState == 4)
+                    obj.innerHTML = XHR.responseText;
+            }
+            XHR.send(null);
+        }
+    }
+
+
+
+</script>
+    <body>
+    <h1>Tomando datos con Ajax</h1>
+    <form>
+        <button onclick="getData('text.data','targetDiv')">
+            Mostrar mensaje
+        </button>
+    </form>
+        <div id="targetDiv">
+            <p>Los datos devueltos irán aquí.</p>
+        </div>
+    </body>
+</html>

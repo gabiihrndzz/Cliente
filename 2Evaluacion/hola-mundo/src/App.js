@@ -53,6 +53,8 @@ import Formularios from './componentes/Formularios';
 import { AppContext, valoresDefecto } from './AppContext';
 import { divide } from 'lodash';
 import FormControlado from './componentes/FormControlado';
+import Filtrado from './componentes/Filtrado';
+import Formulario from './componentes/Formulario';
 
 function App() {
   // Array de rutas de las imágenes
@@ -254,11 +256,10 @@ function App() {
 //     <Saludo nombre="Gabi" />
 //   </div>  
 // )
-<div>
-    <form>
-      <FormControlado></FormControlado>
-    </form>
-</div>
+      <div>
+          <h1>Filtrado de Usuarios</h1>
+          <Formulario />
+  </div>
 
 
 
