@@ -1,15 +1,16 @@
+/* Estilo base de la tabla */
 .tabla { width: 100%;
-border-collapse: collapse;
-border: 1px solid #ddd;
-margin: 20px 0;
-}
-.tabla th {
-background-color: #f4f4f4;
-color: #333;
-font-weight: bold;
-padding: 10px;
-text-align: center;
-border: 1px solid #ddd;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    margin: 20px 0;
+    }
+    .tabla th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
 }
 .tabla fila { border-bottom: 1px solid #ddd;}
 .tabla td { padding: 10px; border: 1px solid #ddd; }
